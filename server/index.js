@@ -2,11 +2,29 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 5000;
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const { User } = require("./models/User");
+const config = require("./config/key");
+const { auth } = require("./middleware/auth");
+
+//const cors = require("cors");
+//CORS를 위한 장치.
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", // 클라이언트 출처
+//     methods: ["GET", "POST"], // 허용할 HTTP 메서드
+//     credentials: true, // 쿠키를 포함하여 요청을 보낼 수 있도록 설정
+//   })
+// );
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 //mongoose연결
 mongoose
-  .connect("URI 나중에 넣어라.")
+  .connect(config.mongoURI)
   .then(() => {
     console.log("mongoDB connected");
   })
@@ -20,9 +38,9 @@ app.get("/", (req, res) => {
 });
 
 //회원가입 Post 라우터
-app.post("api/users/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   const user = new User(req.body);
-
+  console.log(`${req.body.name}님께서 회원가입 하셨습니다!`);
   user
     .save()
     .then(() => {
@@ -54,7 +72,7 @@ app.post("/api/users/login", (req, res) => {
       const isMatch = await user.comparePassword(req.body.password);
       return { isMatch, user };
     })
-    .then((isMatch, user) => {
+    .then(({ isMatch, user }) => {
       console.log(isMatch);
       if (!isMatch) {
         throw new Error("비밀번호가 틀렸습니다.");
@@ -73,6 +91,56 @@ app.post("/api/users/login", (req, res) => {
       console.log(err);
       return res.status(400).json({
         loginSuccess: false,
+        message: err.message,
+      });
+    });
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
+  //auth라는 쿠키의 토큰을 확인하는 미들웨어를 지나야 페이지 라우터 실행.
+  //
+  console.log("auth는 통과함.");
+  res.status(200).json({
+    //여기 이 데이터들의 정체는,
+    //auth로 권한을 확인 받은 res를 위해 주는 유저의 데이터!
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
+  });
+});
+
+app.get("/api/users/logout", auth, (req, res) => {
+  //이 함수는 mongoose스키마가 지원하는 기능으로
+  //두 개의 객체를 받아서 첫 번째 속성을 가진 data의
+  //두 번째 객체의 속성값으로 설정한다.
+  console.log(req.user);
+  User.findOneAndUpdate(
+    {
+      _id: req.user._id,
+    },
+    {
+      token: "",
+    }
+  )
+    .then(() => {
+      res.clearCookie("x_auth", {
+        //챗지피티가 알려준 쿠키 보호 시스템
+        httpOnly: true, // 클라이언트 JavaScript에서 쿠키에 접근하지 못하게 설정
+        secure: true, // HTTPS에서만 쿠키를 전송하도록 설정
+        sameSite: "Strict", // CSRF 공격 방지를 위해 설정
+      });
+      return res.status(200).json({
+        logoutSuccess: true,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({
+        logoutSuccess: false,
         message: err.message,
       });
     });
