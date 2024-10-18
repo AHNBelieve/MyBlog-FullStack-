@@ -19,7 +19,8 @@ function LoginPage() {
     };
 
     dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
+      console.log(response);
+      if (response.value.loginSuccess) {
         nav("/");
       } else {
         alert("ERROR");

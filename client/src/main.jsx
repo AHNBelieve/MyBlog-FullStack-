@@ -12,7 +12,7 @@ import Reducer from "../_reducers/index.js";
 const store = configureStore({
   reducer: Reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(thunk, promiseMiddleware), // ReduxThunk 대신 thunk 사용
+    getDefaultMiddleware().concat(promiseMiddleware, thunk), // ReduxThunk 대신 thunk 사용
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
