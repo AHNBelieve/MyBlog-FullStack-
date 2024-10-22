@@ -9,6 +9,7 @@ import Post from "./pages/Post";
 import NotFound from "./pages/NotFound";
 import Edit from "./pages/Edit";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 export const PostStateContext = createContext();
 export const PostDispatchContext = createContext();
@@ -108,6 +109,7 @@ function App() {
             <Route path="*" element={<NotFound></NotFound>} />
             <Route path="/edit/:id" element={<Edit></Edit>} />
             <Route path="/login" element={<LoginPage></LoginPage>} />
+            <Route path="/register" element={<RegisterPage></RegisterPage>} />
           </Routes>
         </PostDispatchContext.Provider>
       </PostStateContext.Provider>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 function LoginPage() {
   const nav = useNavigate();
@@ -18,49 +19,55 @@ function LoginPage() {
       password: Password,
     };
 
-    dispatch(loginUser(body)).then((response) => {
-      console.log(response);
-      if (response.value.loginSuccess) {
-        nav("/");
-      } else {
-        alert("ERROR");
-      }
-    });
+    dispatch(loginUser(body))
+      .then((response) => {
+        if (response.value && response.value.loginSuccess) {
+          nav("/");
+        } else {
+          alert("ERROR");
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={onSubmitHandler}
+    <div>
+      <Header></Header>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100vh",
+        }}
       >
-        <label>Email</label>
-        <input
-          type="email"
-          value={Email}
-          onChange={(e) => {
-            setEmail(e.currentTarget.value);
-          }}
-        ></input>
-        <label>Password</label>
-        <input
-          type="password"
-          value={Password}
-          onChange={(e) => {
-            setPassword(e.currentTarget.value);
-          }}
-        ></input>
-        <br />
-        <button type="Submit">Login</button>
-      </form>
+        <form
+          style={{ display: "flex", flexDirection: "column" }}
+          onSubmit={onSubmitHandler}
+        >
+          <label>Email</label>
+          <input
+            type="email"
+            value={Email}
+            onChange={(e) => {
+              setEmail(e.currentTarget.value);
+            }}
+          ></input>
+          <label>Password</label>
+          <input
+            type="password"
+            value={Password}
+            onChange={(e) => {
+              setPassword(e.currentTarget.value);
+            }}
+          ></input>
+          <br />
+          <button type="Submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 }

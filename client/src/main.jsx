@@ -12,7 +12,9 @@ import Reducer from "../_reducers/index.js";
 const store = configureStore({
   reducer: Reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(promiseMiddleware, thunk), // ReduxThunk 대신 thunk 사용
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(promiseMiddleware, thunk),
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
