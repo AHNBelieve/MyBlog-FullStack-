@@ -40,10 +40,10 @@ app.get("/", (req, res) => {
 //회원가입 Post 라우터
 app.post("/api/users/register", (req, res) => {
   const user = new User(req.body);
-  console.log(`${req.body.name}님께서 회원가입 하셨습니다!`);
   user
     .save()
     .then(() => {
+      console.log(`${req.body.name}님께서 회원가입 하셨습니다!`);
       res.status(200).json({
         success: true,
       });
@@ -67,15 +67,14 @@ app.post("/api/users/login", (req, res) => {
   })
     .then(async (user) => {
       if (!user) {
-        throw new Error("제공된 이메일에 해당하는 유저가 없습니다..!");
+        throw new Error("There is no user whose email is the email.");
       }
       const isMatch = await user.comparePassword(req.body.password);
       return { isMatch, user };
     })
     .then(({ isMatch, user }) => {
-      console.log(isMatch);
       if (!isMatch) {
-        throw new Error("비밀번호가 틀렸습니다.");
+        throw new Error("Password is incorrect.");
       }
       //로그인 완료
       return user.generateToken();
@@ -88,7 +87,6 @@ app.post("/api/users/login", (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       return res.status(400).json({
         loginSuccess: false,
         message: err.message,
@@ -98,8 +96,6 @@ app.post("/api/users/login", (req, res) => {
 
 app.get("/api/users/auth", auth, (req, res) => {
   //auth라는 쿠키의 토큰을 확인하는 미들웨어를 지나야 페이지 라우터 실행.
-  //
-  console.log("auth는 통과함.");
   res.status(200).json({
     //여기 이 데이터들의 정체는,
     //auth로 권한을 확인 받은 res를 위해 주는 유저의 데이터!
@@ -118,7 +114,6 @@ app.get("/api/users/logout", auth, (req, res) => {
   //이 함수는 mongoose스키마가 지원하는 기능으로
   //두 개의 객체를 받아서 첫 번째 속성을 가진 data의
   //두 번째 객체의 속성값으로 설정한다.
-  console.log(req.user);
   User.findOneAndUpdate(
     {
       _id: req.user._id,
