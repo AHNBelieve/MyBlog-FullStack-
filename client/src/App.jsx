@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Edit from "./pages/Edit";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import auth from "../hoc/auth";
 
 export const PostStateContext = createContext();
 export const PostDispatchContext = createContext();
@@ -103,13 +104,13 @@ function App() {
       <PostStateContext.Provider value={data}>
         <PostDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
           <Routes>
-            <Route path="/" element={<Home></Home>} />
-            <Route path="/new" element={<New></New>} />
-            <Route path="/post/:id" element={<Post></Post>} />
-            <Route path="*" element={<NotFound></NotFound>} />
-            <Route path="/edit/:id" element={<Edit></Edit>} />
-            <Route path="/login" element={<LoginPage></LoginPage>} />
-            <Route path="/register" element={<RegisterPage></RegisterPage>} />
+            <Route path="/" element={auth(Home, null)} />
+            <Route path="/new" element={auth(New, true, true)} />
+            <Route path="/post/:id" element={auth(Post, null)} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/edit/:id" element={auth(Edit, true, true)} />
+            <Route path="/login" element={auth(LoginPage, false)} />
+            <Route path="/register" element={auth(RegisterPage, false)} />
           </Routes>
         </PostDispatchContext.Provider>
       </PostStateContext.Provider>

@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
 
 // const initialState = {
 //   loginSuccess: false,
@@ -12,9 +12,11 @@ export default function (state = {}, action) {
   switch (action.type) {
     case LOGIN_USER:
       // 요청이 시작될 때 상태 업데이트
-      return { ...state, loading: true };
+      return { ...state, loginSuccess: action.payload };
     case REGISTER_USER:
       return { ...state, register: action.payload };
+    case AUTH_USER:
+      return { ...state, userData: action.payload };
     default:
       return state;
   }

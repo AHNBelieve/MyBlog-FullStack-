@@ -7,10 +7,9 @@ export const usePost = (id) => {
   const data = useContext(PostStateContext);
   const [curPostItem, setCurrentPostItem] = useState();
   useEffect(() => {
-    console.log("RKR");
     const currentPostItem = data.find((item) => String(item.id) === String(id));
     if (!currentPostItem) {
-      window.alert("존재하지 않는 일기입니다.");
+      window.alert("존재하지 않는 포스트입니다.");
       nav("/", { replace: true });
     }
     setCurrentPostItem(currentPostItem);
