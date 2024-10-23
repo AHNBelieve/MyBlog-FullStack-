@@ -8,7 +8,6 @@ const Header = () => {
   const LogoutHandler = () => {
     Axios.get("api/users/logout")
       .then((response) => {
-        console.log(response);
         if (response.data.logoutSuccess) {
           alert("로그아웃 되었습니다.");
           nav("/login");

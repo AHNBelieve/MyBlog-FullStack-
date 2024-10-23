@@ -1,5 +1,6 @@
 import "./PostItem.css";
 import { useNavigate } from "react-router-dom";
+import authBlind from "../../hoc/authBlind";
 
 const PostItem = ({ id, createdDate, title, content }) => {
   const nav = useNavigate();

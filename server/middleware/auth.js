@@ -2,8 +2,6 @@ const { User } = require("../models/User");
 
 const auth = (req, res, next) => {
   const token = req.cookies.x_auth;
-  console.log("token is ", token);
-
   //토큰 복호화 및 유저 검색
   User.findByToken(token)
     .then((user) => {
