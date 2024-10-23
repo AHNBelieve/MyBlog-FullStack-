@@ -9,7 +9,6 @@ const Home = () => {
   const nav = useNavigate();
 
   const getFilteredData = (data, input) => {
-    console.log(input);
     return data.filter((item) => {
       return (
         item.content.toLowerCase().includes(input.toLowerCase()) ||
