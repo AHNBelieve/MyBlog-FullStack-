@@ -1,5 +1,4 @@
 import Editor from "../components/Editor";
-import Header from "../components/Header";
 import { useContext } from "react";
 import { PostDispatchContext } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +14,6 @@ const New = () => {
   const nav = useNavigate();
   return (
     <div>
-      <Header></Header>
       <Editor onSubmit={onSubmit} />
     </div>
   );

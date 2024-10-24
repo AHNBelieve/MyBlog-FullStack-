@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-import Viewer from "../components/Viewer";
 import Editor from "../components/Editor";
 import { useParams } from "react-router-dom";
 import { usePost } from "../components/hooks/usePost";
@@ -25,7 +23,7 @@ const Edit = () => {
     }
   };
   const onClickDelete = () => {
-    if (window.confirm("삭제한다 찐으로 ?")) {
+    if (window.confirm("이 게시글을 삭제할까요?")) {
       onDelete(params.id);
       nav("/", { replace: true });
     }
@@ -38,7 +36,6 @@ const Edit = () => {
   const date = new Date(createdDate).toLocaleDateString();
   return (
     <div>
-      <Header></Header>
       <h1>일기 수정하기</h1>
       <Editor initData={curPostItem} onSubmit={onSubmit} />
       <button onClick={onClickDelete}>삭제버튼</button>
