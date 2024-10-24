@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 
 function RegisterPage(props) {
   const nav = useNavigate();
@@ -28,6 +27,7 @@ function RegisterPage(props) {
     dispatch(registerUser(body)).then((response) => {
       if (response.value.success) {
         nav("/");
+        alert("계정이 성공적으로 만들어졌습니다!");
       } else {
         alert("잘못된 형식입니다.");
       }
@@ -36,7 +36,6 @@ function RegisterPage(props) {
 
   return (
     <div>
-      <Header></Header>
       <div
         style={{
           display: "flex",

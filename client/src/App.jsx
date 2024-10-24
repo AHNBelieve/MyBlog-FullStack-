@@ -11,6 +11,7 @@ import Edit from "./pages/Edit";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
+import Header from "./components/Header";
 
 export const PostStateContext = createContext();
 export const PostDispatchContext = createContext();
@@ -101,6 +102,7 @@ function App() {
   };
   return (
     <>
+      <Header></Header>
       <PostStateContext.Provider value={data}>
         <PostDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
           <Routes>

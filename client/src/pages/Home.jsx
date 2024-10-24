@@ -9,7 +9,6 @@ const Home = () => {
   const data = useContext(PostStateContext);
   const nav = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log(user);
 
   const getFilteredData = (data, input) => {
     return data.filter((item) => {
@@ -22,7 +21,6 @@ const Home = () => {
 
   return (
     <div>
-      <Header></Header>
       <PostList getFilteredData={getFilteredData} data={data}></PostList>
       <h1></h1>
       {/*아래는 어드민만 보이도록 하는 버튼 설정법! Redux활용!*/}

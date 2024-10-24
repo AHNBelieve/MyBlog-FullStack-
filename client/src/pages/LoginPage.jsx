@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 
 function LoginPage() {
   const nav = useNavigate();
@@ -21,7 +20,9 @@ function LoginPage() {
 
     dispatch(loginUser(body))
       .then((response) => {
-        if (response.value && response.value.loginSuccess) {
+        // if (response.value && response.value.loginSuccess) {
+        if (response.value) {
+          console.log(response);
           nav("/");
         } else {
           alert("ERROR");
@@ -34,7 +35,6 @@ function LoginPage() {
 
   return (
     <div>
-      <Header></Header>
       <div
         style={{
           display: "flex",

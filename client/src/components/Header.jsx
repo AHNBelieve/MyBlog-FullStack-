@@ -1,23 +1,24 @@
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import { logoutUser } from "../../_actions/user_actions";
+import { useDispatch } from "react-redux";
+import authBlind from "../../hoc/authBlind";
+import Button from "./Button";
 
 const Header = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+
+  const RegisterButton = authBlind(Button, "GUEST");
+  const LoginButton = authBlind(Button, "GUEST");
+  const LogoutButton = authBlind(Button, "USER");
 
   const LogoutHandler = () => {
-    Axios.get("api/users/logout")
-      .then((response) => {
-        if (response.data.logoutSuccess) {
-          alert("로그아웃 되었습니다.");
-          nav("/login");
-        } else {
-          alert("Logout Failure");
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    dispatch(logoutUser()).then((response) => {
+      if (response) {
+        nav("/login");
+      }
+    });
   };
   return (
     <div className="Header">
@@ -31,21 +32,20 @@ const Header = () => {
         </button>
       </div>
       <div className="RightChild">
-        <button
-          onClick={() => {
+        <RegisterButton
+          onClickHandler={() => {
             nav("/register");
           }}
-        >
-          회원가입
-        </button>
-        <button
-          onClick={() => {
+          text={"회원가입"}
+        />
+
+        <LoginButton
+          onClickHandler={() => {
             nav("/login");
           }}
-        >
-          로그인
-        </button>
-        <button onClick={LogoutHandler}>로그아웃</button>
+          text={"로그인"}
+        />
+        <LogoutButton onClickHandler={LogoutHandler} text={"로그아웃"} />
       </div>
     </div>
   );
