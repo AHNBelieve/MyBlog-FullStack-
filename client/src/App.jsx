@@ -103,19 +103,23 @@ function App() {
   return (
     <>
       <Header></Header>
-      <PostStateContext.Provider value={data}>
-        <PostDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
-          <Routes>
-            <Route path="/" element={auth(Home, null)} />
-            <Route path="/new" element={auth(New, true, true)} />
-            <Route path="/post/:id" element={auth(Post, null)} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/edit/:id" element={auth(Edit, true, true)} />
-            <Route path="/login" element={auth(LoginPage, false)} />
-            <Route path="/register" element={auth(RegisterPage, false)} />
-          </Routes>
-        </PostDispatchContext.Provider>
-      </PostStateContext.Provider>
+      <div className="main">
+        <PostStateContext.Provider value={data}>
+          <PostDispatchContext.Provider
+            value={{ onCreate, onDelete, onUpdate }}
+          >
+            <Routes>
+              <Route path="/" element={auth(Home, null)} />
+              <Route path="/new" element={auth(New, true, true)} />
+              <Route path="/post/:id" element={auth(Post, null)} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/edit/:id" element={auth(Edit, true, true)} />
+              <Route path="/login" element={auth(LoginPage, false)} />
+              <Route path="/register" element={auth(RegisterPage, false)} />
+            </Routes>
+          </PostDispatchContext.Provider>
+        </PostStateContext.Provider>
+      </div>
     </>
   );
 }

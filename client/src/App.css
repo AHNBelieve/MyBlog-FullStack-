@@ -1,9 +1,3 @@
-Header {
-  position: fixed; /* 고정 위치 */
-  top: 0; /* 상단에 고정 */
-  left: 0;
-  right: 0;
-  height: 60px; /* 헤더 높이 */
-  background-color: #fff; /* 헤더 배경색 */
-  z-index: 1000; /* 다른 요소 위에 표시되도록 */
+.main {
+  margin-top: 60px;
 }

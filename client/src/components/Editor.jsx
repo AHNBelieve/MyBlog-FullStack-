@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
 const Editor = ({ initData, onSubmit }) => {
   const nav = useNavigate();
@@ -32,18 +33,36 @@ const Editor = ({ initData, onSubmit }) => {
   };
 
   return (
-    <div className="Editor">
-      <h1>제목</h1>
-      <input
-        type="text"
-        name="title"
-        value={input.title}
-        onChange={onChangeInput}
-      />
-      <h2>내용</h2>
-      <textarea name="content" value={input.content} onChange={onChangeInput} />
-      <button onClick={onClickSubmitButton}>저장</button>
-    </div>
+    <>
+      <div className="mb-3">
+        <label htmlFor="exampleFormControlInput1" className="form-label">
+          Title
+        </label>
+        <input
+          type="text"
+          name="title"
+          value={input.title}
+          onChange={onChangeInput}
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="제목 입력 하던가ㅋ"
+        />
+      </div>
+      <div>
+        <label htmlFor="exampleFormControlInput1" className="form-label">
+          Content
+        </label>
+        <textarea
+          name="content"
+          value={input.content}
+          onChange={onChangeInput}
+          className="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+        />
+        <Button onClickHandler={onClickSubmitButton} text="SAVE"></Button>
+      </div>
+    </>
   );
 };
 

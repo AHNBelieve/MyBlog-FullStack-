@@ -9,37 +9,29 @@ const PostList = ({ data, getFilteredData }) => {
   data = getFilteredData(data, searchInput);
 
   return (
-    <div className="PostList">
-      <h1>dasd</h1>
-      <div className="Search">
-        <div className="SearchOn">
-          <button
-            onClick={() => {
-              if (!searchSwitch) setSearchSwitch(1);
-              else setSearchSwitch(0);
-            }}
-          >
-            검색기능 켜기!
-          </button>
-        </div>
+    <div>
+      <div className="input-group mb-3">
+        <button
+          onClick={() => {
+            if (!searchSwitch) setSearchSwitch(1);
+            else setSearchSwitch(0);
+          }}
+          className="input-group-text"
+          id="inputGroup-sizing-default"
+        >
+          Search
+        </button>
         {searchSwitch === 1 && (
-          <div className="SearchBar">
-            <input
-              value={searchInput}
-              type="text"
-              onChange={(e) => {
-                setSearchInput(e.target.value);
-              }}
-            />
-            <button
-              className="submit"
-              onClick={() => {
-                getFilteredData(searchInput);
-              }}
-            >
-              검색
-            </button>
-          </div>
+          <input
+            value={searchInput}
+            type="text"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+            className="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
         )}
       </div>
       {data.map((item) => (

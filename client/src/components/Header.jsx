@@ -21,33 +21,39 @@ const Header = () => {
     });
   };
   return (
-    <div className="Header">
-      <div className="LeftChild">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
         <button
           onClick={() => {
             nav("/");
           }}
+          className="btn btn-dark me-auto" // 왼쪽 정렬
         >
           안현준의 블로그
         </button>
+        <div className="d-flex">
+          <RegisterButton
+            onClickHandler={() => {
+              nav("/register");
+            }}
+            text={"회원가입"}
+            className="btn btn-outline-primary me-3" // 버튼 간격 조정
+          />
+          <LoginButton
+            onClickHandler={() => {
+              nav("/login");
+            }}
+            text={"로그인"}
+            className="btn btn-outline-primary me-3" // 버튼 간격 조정
+          />
+          <LogoutButton
+            onClickHandler={LogoutHandler}
+            text={"로그아웃"}
+            className="btn btn-outline-danger" // 버튼 스타일
+          />
+        </div>
       </div>
-      <div className="RightChild">
-        <RegisterButton
-          onClickHandler={() => {
-            nav("/register");
-          }}
-          text={"회원가입"}
-        />
-
-        <LoginButton
-          onClickHandler={() => {
-            nav("/login");
-          }}
-          text={"로그인"}
-        />
-        <LogoutButton onClickHandler={LogoutHandler} text={"로그아웃"} />
-      </div>
-    </div>
+    </nav>
   );
 };
 

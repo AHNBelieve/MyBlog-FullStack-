@@ -44,28 +44,40 @@ function LoginPage() {
           height: "100vh",
         }}
       >
-        <form
-          style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={onSubmitHandler}
-        >
-          <label>Email</label>
-          <input
-            type="email"
-            value={Email}
-            onChange={(e) => {
-              setEmail(e.currentTarget.value);
-            }}
-          ></input>
-          <label>Password</label>
-          <input
-            type="password"
-            value={Password}
-            onChange={(e) => {
-              setPassword(e.currentTarget.value);
-            }}
-          ></input>
+        <form onSubmit={onSubmitHandler}>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              value={Email}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            ></input>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              value={Password}
+              onChange={(e) => {
+                setPassword(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputPassword1"
+            ></input>
+          </div>
           <br />
-          <button type="Submit">Login</button>
+          <button type="Submit" className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     </div>
