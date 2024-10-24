@@ -4,6 +4,7 @@ import { usePost } from "../components/hooks/usePost";
 import { PostDispatchContext } from "../App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const Edit = () => {
   const nav = useNavigate();
@@ -36,9 +37,9 @@ const Edit = () => {
   const date = new Date(createdDate).toLocaleDateString();
   return (
     <div>
-      <h1>일기 수정하기</h1>
+      <h4>Edit</h4>
       <Editor initData={curPostItem} onSubmit={onSubmit} />
-      <button onClick={onClickDelete}>삭제버튼</button>
+      <Button onClickHandler={onClickDelete} text="DELETE"></Button>
     </div>
   );
 };

@@ -49,42 +49,69 @@ function RegisterPage(props) {
           style={{ display: "flex", flexDirection: "column" }}
           onSubmit={onSubmitHandler}
         >
-          <label>Email</label>
-          <input
-            type="email"
-            value={Email}
-            onChange={(e) => {
-              setEmail(e.currentTarget.value);
-            }}
-          ></input>
-          <label>Name</label>
-          <input
-            type="text"
-            value={Name}
-            onChange={(e) => {
-              setName(e.currentTarget.value);
-            }}
-          ></input>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email
+            </label>
+            <input
+              type="email"
+              value={Email}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            ></input>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              value={Name}
+              onChange={(e) => {
+                setName(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputName"
+            ></input>
+          </div>
 
-          <label>Password</label>
-          <input
-            type="password"
-            value={Password}
-            onChange={(e) => {
-              setPassword(e.currentTarget.value);
-            }}
-          ></input>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              value={Password}
+              onChange={(e) => {
+                setPassword(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputPassword1"
+            ></input>
+          </div>
 
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            value={ConfirmPassWord}
-            onChange={(e) => {
-              setConfirmPassword(e.currentTarget.value);
-            }}
-          ></input>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              value={ConfirmPassWord}
+              onChange={(e) => {
+                setConfirmPassword(e.currentTarget.value);
+              }}
+              className="form-control"
+              id="exampleInputPassword1"
+            ></input>
+          </div>
           <br />
-          <button type="Submit">Register</button>
+          <button class="btn btn-success" type="Submit">
+            Register
+          </button>
         </form>
       </div>
     </div>
