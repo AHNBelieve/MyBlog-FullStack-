@@ -1,53 +1,55 @@
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from "./types";
+import { LOAD_POST, DELETE_POST, EDIT_POST, NEW_POST } from "./types";
 
-export function loginUser(dataToSubmit) {
+export function postLoad(page = 1) {
   const request = axios
-    .post("/api/users/login", dataToSubmit)
+    .get(`/api/post/load?page=${page}`)
     .then((response) => {
       console.log(response);
       return response.data;
     })
     .catch((err) => {
+      console.log(err);
       throw Error(err.response.data.message);
     });
   return {
-    type: LOGIN_USER,
+    type: LOAD_POST,
     payload: request,
   };
 }
-
-export function registerUser(dataToSubmit) {
+//여기부터.
+export function newPost(dataToSubmit) {
   const request = axios
-    .post("/api/users/register", dataToSubmit)
+    .post("/api/post/new", dataToSubmit)
     .then((response) => response.data);
   return {
-    type: REGISTER_USER,
+    type: NEW_POST,
     payload: request,
   };
 }
 
-export function auth() {
+export function editPost(dataTosubmit) {
   const request = axios
-    .get("/api/users/auth")
+    .post("/api/post/edit", dataTosubmit)
     .then((response) => response.data)
     .catch((err) => err);
   return {
-    type: AUTH_USER,
+    type: EDIT_POST,
     payload: request,
   };
 }
 
 //추가적으로 개발한 로그아웃 액션함수
-export function logoutUser() {
+export function deletePost(id) {
   const request = axios
-    .get("api/users/logout")
+    .delete(`/api/post/delete/${id}`)
     .then((response) => response.data)
     .catch((err) => {
-      alert(err.message);
+      alert(err.response.data.message || "An error occurred");
     });
+
   return {
-    type: LOGOUT_USER,
+    type: DELETE_POST,
     payload: request,
   };
 }
