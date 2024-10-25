@@ -17,19 +17,16 @@ export default function (state = initialState, action) {
       return state;
     case `${LOGIN_USER}_FULFILLED`:
       // 요청이 시작될 때 상태 업데이트
-      console.log(action.payload);
       return { ...state, loginSuccess: true };
     case `${REGISTER_USER}_FULFILLED`:
       return { ...state, register: action.payload };
     case `${AUTH_USER}_PENDING`:
       return state;
     case `${AUTH_USER}_FULFILLED`:
-      if (action.payload.status === 401) {
+      if (action.payload.status === 500 || action.payload.status === 401) {
         return state;
       }
       return { ...state, loginSuccess: true, userData: action.payload };
-    case `${AUTH_USER}_REJECTED`:
-      return state;
     case `${LOGOUT_USER}_PENDING`:
       return state;
     case `${LOGOUT_USER}_FULFILLED`:

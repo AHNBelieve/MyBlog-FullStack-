@@ -2,6 +2,7 @@ import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
 import { useReducer, useRef, createContext } from "react";
+import { useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
 import New from "./pages/New";
@@ -12,6 +13,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
 import Header from "./components/Header";
+import { newPost, postLoad } from "../_actions/post_actions";
+import { useEffect } from "react";
 
 export const PostStateContext = createContext();
 export const PostDispatchContext = createContext();
@@ -68,19 +71,30 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
+  const reduxDispatch = useDispatch();
   const idRef = useRef(4);
+  const [data, dispatch] = useReducer(reducer, []);
+
+  // useEffect를 사용하여 컴포넌트가 마운트될 때만 데이터를 로드합니다.
+  useEffect(() => {
+    reduxDispatch(postLoad())
+      .then((response) => {
+        dispatch({ type: "INIT", data: response.value }); // payload에서 데이터 가져오기
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [reduxDispatch]); // reduxDispatch가 변경될 때만 실행
 
   //dispatches
   const onCreate = (createdDate, title, content) => {
+    let body = { id: idRef.current++, createdDate, title, content };
     dispatch({
       type: "CREATE",
-      data: {
-        id: idRef.current++,
-        createdDate,
-        title,
-        content,
-      },
+      data: body,
+    });
+    reduxDispatch(newPost(body)).then(() => {
+      console.log("포스트 생성 완료!");
     });
   };
   const onUpdate = (id, createdDate, title, content) => {
@@ -100,6 +114,13 @@ function App() {
       id,
     });
   };
+  if (!data) {
+    return (
+      <div>
+        <Header></Header>
+      </div>
+    );
+  }
   return (
     <>
       <Header></Header>

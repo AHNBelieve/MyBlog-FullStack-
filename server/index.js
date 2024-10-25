@@ -5,6 +5,7 @@ const port = 5000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { User } = require("./models/User");
+const { Post } = require("./models/Post");
 const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 
@@ -138,5 +139,60 @@ app.get("/api/users/logout", auth, (req, res) => {
         logoutSuccess: false,
         message: err.message,
       });
+    });
+});
+
+app.get("/api/post/load", async (req, res) => {
+  const page = parseInt(req.query.page);
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  try {
+    const posts = await Post.find()
+      .sort({ createdDate: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ error: "Load Failed", err });
+  }
+});
+
+//Post
+app.post("/api/post/new", async (req, res) => {
+  const post = new Post(req.body);
+  post
+    .save(post)
+    .then(() => {
+      console.log(post);
+      res.status(200).json({
+        success: true,
+      });
+    })
+    .catch((err) => {
+      return res.json({ success: false, err });
+    });
+});
+
+app.post("/api/post/edit/:id", async (req, res) => {
+  Post.findOneAndUpdate(
+    { id: req.params.id },
+    { title: req.body.title, content: req.body.content }
+  )
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      res.status(400).json({ message: "Can't Edit", err });
+    });
+});
+
+app.delete("/api/post/delete/:id", async (req, res) => {
+  Post.deleteOne({ id: req.params.id })
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      res.status(400).json({ message: "삭제 실패", err });
     });
 });

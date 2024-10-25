@@ -7,7 +7,7 @@ const PostItem = ({ id, createdDate, title, content }) => {
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN");
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card" style={{ width: "90rem" }}>
       <div className="card-body">
         <h5 className="card-title" onClick={() => nav(`/post/${id}`)}>
           {title}
