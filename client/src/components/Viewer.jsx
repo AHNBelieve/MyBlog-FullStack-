@@ -1,5 +1,4 @@
 const Viewer = ({ createdDate, title, content }) => {
-  //지금 위에 숨어있음 ㅅㅂ;;ㅋㅋ
   return (
     <div>
       <div className="title">

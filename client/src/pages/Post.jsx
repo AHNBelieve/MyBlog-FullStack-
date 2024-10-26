@@ -4,8 +4,8 @@ import { usePost } from "../components/hooks/usePost";
 
 const Post = () => {
   const params = useParams();
-  const curPostItem = usePost(params.id);
-
+  const curPostItem = usePost(params._id);
+  console.log(curPostItem);
   if (!curPostItem) {
     return <div>Loading...</div>;
   }

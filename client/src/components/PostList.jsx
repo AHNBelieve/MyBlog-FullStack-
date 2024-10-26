@@ -1,11 +1,10 @@
-import { PostStateContext } from "../App";
 import { useState } from "react";
 import PostItem from "./PostItem";
+import PropTypes from "prop-types";
 
-const PostList = ({ data, getFilteredData }) => {
+const PostList = ({ getFilteredData, data }) => {
   const [searchSwitch, setSearchSwitch] = useState(0);
   const [searchInput, setSearchInput] = useState("");
-
   data = getFilteredData(data, searchInput);
 
   return (
@@ -35,10 +34,15 @@ const PostList = ({ data, getFilteredData }) => {
         )}
       </div>
       {data.map((item) => (
-        <PostItem key={item.id} {...item} />
+        <PostItem key={item._id} {...item} />
       ))}
     </div>
   );
+};
+
+PostList.propTypes = {
+  data: PropTypes.array.isRequired,
+  getFilteredData: PropTypes.func.isRequired,
 };
 
 export default PostList;
