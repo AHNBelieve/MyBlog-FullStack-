@@ -1,6 +1,11 @@
 const { User } = require("../models/User");
 
 const auth = (req, res, next) => {
+  if (!req.cookies.x_auth) {
+    return res
+      .status(401)
+      .json({ isAuth: false, message: "There is not token" });
+  }
   const token = req.cookies.x_auth;
   //토큰 복호화 및 유저 검색
   User.findByToken(token)

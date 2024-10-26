@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { useDispatch } from "react-redux";
 
 const Editor = ({ initData, onSubmit }) => {
   const nav = useNavigate();
@@ -9,7 +10,6 @@ const Editor = ({ initData, onSubmit }) => {
     title: "",
     content: "",
   });
-
   useEffect(() => {
     if (initData) {
       setInput({
@@ -45,7 +45,6 @@ const Editor = ({ initData, onSubmit }) => {
           onChange={onChangeInput}
           className="form-control"
           id="exampleFormControlInput1"
-          placeholder="제목 입력 하던가ㅋ"
         />
       </div>
       <div>

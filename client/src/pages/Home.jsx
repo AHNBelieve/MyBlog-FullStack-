@@ -1,16 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import { PostStateContext } from "../App";
-import { useContext } from "react";
-import PostList from "../components/PostList";
 import { useSelector } from "react-redux";
+import PostList from "../components/PostList";
 import authBlind from "../../hoc/authBlind";
 import Button from "../components/Button";
+import { useDispatch } from "react-redux";
+import { postLoad } from "../../_actions/post_actions";
+import { useEffect } from "react";
 
 const Home = () => {
-  const data = useContext(PostStateContext);
+  const data = useSelector((state) => state.post);
   const nav = useNavigate();
-  const user = useSelector((state) => state.user);
   const NewPostButton = authBlind(Button, "ADMIN");
+  const reduxDispatch = useDispatch();
+  useEffect(() => {
+    reduxDispatch(postLoad())
+      .then((response) => {
+        // payload에서 데이터 가져오기
+        console.log("현재 포스트: ", response.value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [reduxDispatch]);
 
   const getFilteredData = (data, input) => {
     return data.filter((item) => {
@@ -25,7 +36,6 @@ const Home = () => {
     <div>
       <PostList getFilteredData={getFilteredData} data={data}></PostList>
       <h1></h1>
-      {/*아래는 어드민만 보이도록 하는 버튼 설정법! Redux활용!*/}
       <NewPostButton
         onClickHandler={() => {
           nav("/new");

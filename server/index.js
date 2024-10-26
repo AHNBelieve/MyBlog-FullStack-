@@ -159,25 +159,28 @@ app.get("/api/post/load", async (req, res) => {
 });
 
 //Post
-app.post("/api/post/new", async (req, res) => {
+app.post("/api/post/new", (req, res) => {
   const post = new Post(req.body);
   post
-    .save(post)
+    .save()
     .then(() => {
-      console.log(post);
       res.status(200).json({
         success: true,
       });
     })
     .catch((err) => {
-      return res.json({ success: false, err });
+      return res.json({ success: false, err: err.message });
     });
 });
 
-app.post("/api/post/edit/:id", async (req, res) => {
+app.post("/api/post/edit", async (req, res) => {
   Post.findOneAndUpdate(
-    { id: req.params.id },
-    { title: req.body.title, content: req.body.content }
+    { _id: req.body._id },
+    {
+      title: req.body.title,
+      content: req.body.content,
+      createdDate: req.body.createdDate,
+    }
   )
     .then(() => {
       res.status(200).json({ success: true });
@@ -187,8 +190,8 @@ app.post("/api/post/edit/:id", async (req, res) => {
     });
 });
 
-app.delete("/api/post/delete/:id", async (req, res) => {
-  Post.deleteOne({ id: req.params.id })
+app.delete("/api/post/delete/:_id", async (req, res) => {
+  Post.deleteOne({ _id: req.params._id })
     .then(() => {
       res.status(200).json({ success: true });
     })

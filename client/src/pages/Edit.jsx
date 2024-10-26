@@ -1,40 +1,45 @@
 import Editor from "../components/Editor";
 import { useParams } from "react-router-dom";
 import { usePost } from "../components/hooks/usePost";
-import { PostDispatchContext } from "../App";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { useDispatch } from "react-redux";
+import { editPost, deletePost } from "../../_actions/post_actions";
 
 const Edit = () => {
   const nav = useNavigate();
   const params = useParams();
-  const curPostItem = usePost(params.id);
-  const { onDelete, onUpdate } = useContext(PostDispatchContext);
+  const curPostItem = usePost(params._id);
+  const dispatch = useDispatch();
 
   const onSubmit = (input) => {
-    if (window.confirm("이거 ㄹㅇ 수정할거임?")) {
-      onUpdate(
-        params.id,
-        input.createdDate.getTime(),
-        input.title,
-        input.content
-      );
-      nav("/", { replace: true });
+    if (window.confirm("Save?")) {
+      console.log("?");
+      dispatch(
+        editPost({
+          _id: curPostItem._id,
+          createdDate: input.createdDate.getTime(),
+          title: input.title,
+          content: input.content,
+        })
+      ).then(() => {
+        nav("/", { replace: true });
+      });
     }
   };
   const onClickDelete = () => {
-    if (window.confirm("이 게시글을 삭제할까요?")) {
-      onDelete(params.id);
-      nav("/", { replace: true });
+    if (window.confirm("Delete?")) {
+      dispatch(deletePost(curPostItem._id)).then(() => {
+        nav("/", { replace: true });
+      });
     }
     return;
   };
   if (!curPostItem) {
     return <div>로딩중</div>;
   }
-  const { createdDate, title, content } = curPostItem;
-  const date = new Date(createdDate).toLocaleDateString();
+  // const { createdDate, title, content } = curPostItem;
+  // const date = new Date(createdDate).toLocaleDateString();
   return (
     <div>
       <h4>Edit</h4>

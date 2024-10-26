@@ -19,6 +19,7 @@ export function postLoad(page = 1) {
 }
 //여기부터.
 export function newPost(dataToSubmit) {
+  console.log(dataToSubmit);
   const request = axios
     .post("/api/post/new", dataToSubmit)
     .then((response) => response.data);
@@ -30,7 +31,7 @@ export function newPost(dataToSubmit) {
 
 export function editPost(dataTosubmit) {
   const request = axios
-    .post("/api/post/edit", dataTosubmit)
+    .post(`/api/post/edit`, dataTosubmit)
     .then((response) => response.data)
     .catch((err) => err);
   return {

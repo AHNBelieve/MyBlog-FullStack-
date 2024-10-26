@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
 
-export default function (SpecificComponent, option, adminRoute = null) {
+export default function authWithDispatch(
+  SpecificComponent,
+  option,
+  adminRoute = null
+) {
   //option
   //null 아무나 출입 가능
   //true 로그인한 유저만 출입 가능
@@ -38,12 +42,12 @@ export default function (SpecificComponent, option, adminRoute = null) {
         }
         setLoading(false);
       });
-    }, [dispatch, loading]);
+    }, [dispatch, nav]);
 
     if (loading) {
       return <div>Loading</div>;
     }
-    return <SpecificComponent></SpecificComponent>;
+    return <SpecificComponent {...props}></SpecificComponent>;
   }
   return <AuthenticationCheck></AuthenticationCheck>;
 }

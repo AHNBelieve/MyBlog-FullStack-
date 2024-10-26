@@ -20,27 +20,6 @@ export const PostStateContext = createContext();
 export const PostDispatchContext = createContext();
 
 // 적용 됐는지 확인!
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date(),
-    title: "야스오는 최고야",
-    content: "첫 번째 포스트",
-  },
-  {
-    id: 2,
-    createdDate: new Date(),
-    title: "요네는 멋져",
-    content: "두 번째 포스트",
-  },
-  {
-    id: 3,
-    createdDate: new Date(),
-    title: "겐지는 벌레야",
-    content: "세 번째 포스트",
-  },
-];
-
 //Reducer
 function reducer(state, action) {
   let nextState;
@@ -71,75 +50,33 @@ function reducer(state, action) {
 }
 
 function App() {
-  const reduxDispatch = useDispatch();
-  const idRef = useRef(4);
-  const [data, dispatch] = useReducer(reducer, []);
-
-  // useEffect를 사용하여 컴포넌트가 마운트될 때만 데이터를 로드합니다.
-  useEffect(() => {
-    reduxDispatch(postLoad())
-      .then((response) => {
-        dispatch({ type: "INIT", data: response.value }); // payload에서 데이터 가져오기
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [reduxDispatch]); // reduxDispatch가 변경될 때만 실행
+  // const reduxDispatch = useDispatch();
+  // useEffect(() => {
+  //   reduxDispatch(postLoad())
+  //     .then((response) => {
+  //       // payload에서 데이터 가져오기
+  //       console.log("현재 포스트: ", response.value);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [reduxDispatch]); // reduxDispatch가 변경될 때만 실행
 
   //dispatches
-  const onCreate = (createdDate, title, content) => {
-    let body = { id: idRef.current++, createdDate, title, content };
-    dispatch({
-      type: "CREATE",
-      data: body,
-    });
-    reduxDispatch(newPost(body)).then(() => {
-      console.log("포스트 생성 완료!");
-    });
-  };
-  const onUpdate = (id, createdDate, title, content) => {
-    dispatch({
-      type: "UPDATE",
-      data: {
-        id,
-        createdDate,
-        title,
-        content,
-      },
-    });
-  };
-  const onDelete = (id) => {
-    dispatch({
-      type: "DELETE",
-      id,
-    });
-  };
-  if (!data) {
-    return (
-      <div>
-        <Header></Header>
-      </div>
-    );
-  }
+
   return (
     <>
       <Header></Header>
       <div className="main">
-        <PostStateContext.Provider value={data}>
-          <PostDispatchContext.Provider
-            value={{ onCreate, onDelete, onUpdate }}
-          >
-            <Routes>
-              <Route path="/" element={auth(Home, null)} />
-              <Route path="/new" element={auth(New, true, true)} />
-              <Route path="/post/:id" element={auth(Post, null)} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/edit/:id" element={auth(Edit, true, true)} />
-              <Route path="/login" element={auth(LoginPage, false)} />
-              <Route path="/register" element={auth(RegisterPage, false)} />
-            </Routes>
-          </PostDispatchContext.Provider>
-        </PostStateContext.Provider>
+        <Routes>
+          <Route path="/" element={auth(Home, null)} />
+          <Route path="/new" element={auth(New, true, true)} />
+          <Route path="/post/:_id" element={auth(Post, null)} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/edit/:_id" element={auth(Edit, true, true)} />
+          <Route path="/login" element={auth(LoginPage, false)} />
+          <Route path="/register" element={auth(RegisterPage, false)} />
+        </Routes>
       </div>
     </>
   );
