@@ -30,6 +30,10 @@ const PostList = ({ getFilteredData, data }) => {
             className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
+            style={{
+              border: "2px solid gray", // 테두리 두께와 색상 설정
+              padding: "5px", // 패딩을 추가하여 더 여유로운 공간 제공
+            }}
           />
         )}
       </div>

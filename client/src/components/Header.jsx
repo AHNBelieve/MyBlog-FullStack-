@@ -21,15 +21,30 @@ const Header = () => {
     });
   };
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav
+      className="navbar bg-dark border-bottom border-body"
+      data-bs-theme="dark"
+    >
       <div className="container-fluid">
-        <button
+        <a
+          className="navbar-brand"
           onClick={() => {
             nav("/");
           }}
-          className="btn btn-dark me-auto" // 왼쪽 정렬
+          style={{ color: "white" }}
         >
-          안현준의 블로그
+          MyBlog
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div className="d-flex">
           <RegisterButton

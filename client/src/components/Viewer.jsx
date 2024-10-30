@@ -1,12 +1,14 @@
 const Viewer = ({ createdDate, title, content }) => {
   return (
     <div>
-      <div className="title">
-        <h1>{title}</h1>
-      </div>
-      <h5>{createdDate}</h5>
-      <div className="content">
-        <p>{content}</p>
+      <div className="card">
+        <div className="card-header">{title}</div>
+        <div className="card-body">
+          <blockquote className="blockquote mb-0">
+            <p>{content}</p>
+            <footer className="blockquote-footer">{createdDate}</footer>
+          </blockquote>
+        </div>
       </div>
     </div>
   );

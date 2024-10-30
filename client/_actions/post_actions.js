@@ -5,7 +5,6 @@ export function postLoad(page = 1) {
   const request = axios
     .get(`/api/post/load?page=${page}`)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((err) => {
@@ -19,7 +18,6 @@ export function postLoad(page = 1) {
 }
 //여기부터.
 export function newPost(dataToSubmit) {
-  console.log(dataToSubmit);
   const request = axios
     .post("/api/post/new", dataToSubmit)
     .then((response) => response.data);

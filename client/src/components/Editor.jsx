@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "./Button";
-import { useDispatch } from "react-redux";
 
 const Editor = ({ initData, onSubmit }) => {
-  const nav = useNavigate();
   const [input, setInput] = useState({
     createdDate: new Date(),
     title: "",

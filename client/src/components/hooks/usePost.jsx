@@ -10,8 +10,6 @@ export const usePost = (_id) => {
     const currentPostItem = data.find(
       (item) => String(item._id) === String(_id)
     );
-    console.log(data);
-    console.log(_id);
     if (!currentPostItem) {
       window.alert("존재하지 않는 포스트입니다.");
       nav("/", { replace: true });

@@ -36,7 +36,11 @@ const Edit = () => {
     return;
   };
   if (!curPostItem) {
-    return <div>로딩중</div>;
+    return (
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
   }
   // const { createdDate, title, content } = curPostItem;
   // const date = new Date(createdDate).toLocaleDateString();

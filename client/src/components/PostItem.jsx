@@ -1,4 +1,3 @@
-import "./PostItem.css";
 import { useNavigate } from "react-router-dom";
 import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
@@ -8,7 +7,7 @@ const PostItem = ({ _id, title, createdDate }) => {
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN");
   return (
-    <div className="card" style={{ width: "90rem" }}>
+    <div className="card" style={{ width: "auto" }}>
       <div className="card-body">
         <h5 className="card-title" onClick={() => nav(`/post/${_id}`)}>
           {title}
