@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
+import usePageTitle from "../components/hooks/usePageTitle";
 
 function RegisterPage(props) {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  usePageTitle("회원가입");
 
   const [Email, setEmail] = useState("");
   const [Name, setName] = useState("");

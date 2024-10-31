@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_actions";
 import { useNavigate } from "react-router-dom";
+import usePageTitle from "../components/hooks/usePageTitle";
 
 function LoginPage() {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  usePageTitle("로그인");
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");

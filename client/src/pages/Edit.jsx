@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { editPost, deletePost } from "../../_actions/post_actions";
+import usePageTitle from "../components/hooks/usePageTitle";
 
 const Edit = () => {
   const nav = useNavigate();
   const params = useParams();
   const curPostItem = usePost(params._id);
   const dispatch = useDispatch();
+  usePageTitle("수정하기");
 
   const onSubmit = (input) => {
     if (window.confirm("Save?")) {
