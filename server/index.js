@@ -12,7 +12,7 @@ const { auth } = require("./middleware/auth");
 const cors = require("cors");
 app.use(
   cors({
-    origin: "https://myblog-fullstack.onrender.com", // 허용할 출처
+    origin: ["https://myblog-fullstack.onrender.com", "100.20.92.101"], // 허용할 출처
     credentials: true,
   })
 );
