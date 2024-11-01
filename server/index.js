@@ -12,15 +12,13 @@ const { auth } = require("./middleware/auth");
 const cors = require("cors");
 app.use(
   cors({
-    origin: ["https://myblog-fullstack.onrender.com", "100.20.92.101"], // 허용할 출처
+    origin: [
+      "https://myblog-fullstack.onrender.com",
+      "100.20.92.101",
+      "https://my-blog-client-sigma.vercel.app",
+    ],
     credentials: true,
-  })
-);
-app.use(
-  cors({
-    origin: "https://my-blog-client-sigma.vercel.app", // 클라이언트 URL
     methods: ["GET", "POST", "PUT", "DELETE"], // 필요한 HTTP 메서드
-    credentials: true, // 쿠키를 사용하는 경우
   })
 );
 

@@ -47,6 +47,7 @@ import Header from "./components/Header";
 
 function App() {
   console.log(import.meta.env);
+  console.log("API URL:", process.env.VITE_API_URL);
   const dispatch = useDispatch();
   const page = useRef(1);
   //배포 서버 연결 작업 테스트
