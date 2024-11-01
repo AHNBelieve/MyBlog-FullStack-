@@ -3,7 +3,7 @@ import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from "./types";
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post("/api/users/login", dataToSubmit)
+    .post(`${import.meta.env.VITE_API_URL}/api/users/login`, dataToSubmit)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -19,7 +19,7 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
   const request = axios
-    .post("/api/users/register", dataToSubmit)
+    .post(`${import.meta.env.VITE_API_URL}/api/users/register`, dataToSubmit)
     .then((response) => response.data);
   return {
     type: REGISTER_USER,
@@ -29,7 +29,7 @@ export function registerUser(dataToSubmit) {
 
 export function auth() {
   const request = axios
-    .get("/api/users/auth")
+    .get(`${import.meta.env.VITE_API_URL}/api/users/auth`)
     .then((response) => response.data)
     .catch((err) => err);
   return {
@@ -41,7 +41,7 @@ export function auth() {
 //추가적으로 개발한 로그아웃 액션함수
 export function logoutUser() {
   const request = axios
-    .get("api/users/logout")
+    .get(`${import.meta.env.VITE_API_URL}api/users/logout`)
     .then((response) => response.data)
     .catch((err) => {
       alert(err.message);
