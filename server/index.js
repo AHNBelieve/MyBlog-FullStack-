@@ -9,15 +9,12 @@ const { Post } = require("./models/Post");
 const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 
-//const cors = require("cors");
-//CORS를 위한 장치.
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173", // 클라이언트 출처
-//     methods: ["GET", "POST"], // 허용할 HTTP 메서드
-//     credentials: true, // 쿠키를 포함하여 요청을 보낼 수 있도록 설정
-//   })
-// );
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "https://myblog-fullstack.onrender.com", // 허용할 출처
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
