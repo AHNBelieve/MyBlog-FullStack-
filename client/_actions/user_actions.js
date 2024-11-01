@@ -43,7 +43,7 @@ export function auth() {
 //추가적으로 개발한 로그아웃 액션함수
 export function logoutUser() {
   const request = axios
-    .get(`${import.meta.env.VITE_API_URL}api/users/logout`)
+    .get(`${import.meta.env.VITE_API_URL}/api/users/logout`)
     .then((response) => response.data)
     .catch((err) => {
       alert(err.message);
