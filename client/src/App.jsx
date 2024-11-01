@@ -49,6 +49,7 @@ function App() {
   console.log(import.meta.env);
   const dispatch = useDispatch();
   const page = useRef(1);
+
   useEffect(() => {
     dispatch(postLoad(page))
       .then((response) => {

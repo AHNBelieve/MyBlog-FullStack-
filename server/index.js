@@ -13,6 +13,7 @@ const cors = require("cors");
 app.use(
   cors({
     origin: "https://myblog-fullstack.onrender.com", // 허용할 출처
+    credentials: true,
   })
 );
 
