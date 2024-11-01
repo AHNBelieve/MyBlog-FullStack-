@@ -49,6 +49,33 @@ function App() {
   console.log(import.meta.env);
   const dispatch = useDispatch();
   const page = useRef(1);
+  //배포 서버 연결 작업 테스트
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/endpoint`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     dispatch(postLoad(page))

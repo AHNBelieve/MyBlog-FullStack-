@@ -31,6 +31,12 @@ mongoose
     console.log("error" + err);
   });
 
+//배포 서버 연결 테스트
+app.get("/api/endpoint", (req, res) => {
+  // 요청을 처리하는 로직
+  res.json({ message: "Hello from the server!" });
+});
+
 //기본 예시
 app.get("/", (req, res) => {
   res.send("Hello World!");
