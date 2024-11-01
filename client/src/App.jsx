@@ -46,7 +46,6 @@ import Header from "./components/Header";
 // }
 
 function App() {
-  console.log(process.env);
   const dispatch = useDispatch();
   const page = useRef(1);
   useEffect(() => {
