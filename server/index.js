@@ -16,6 +16,13 @@ app.use(
     credentials: true,
   })
 );
+app.use(
+  cors({
+    origin: "https://my-blog-client-sigma.vercel.app", // 클라이언트 URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // 필요한 HTTP 메서드
+    credentials: true, // 쿠키를 사용하는 경우
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
