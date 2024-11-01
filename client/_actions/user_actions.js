@@ -3,7 +3,9 @@ import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from "./types";
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post(`${import.meta.env.VITE_API_URL}/api/users/login`, dataToSubmit)
+    .post(`${import.meta.env.VITE_API_URL}/api/users/login`, dataToSubmit, {
+      withCredentials: true, // 쿠키를 포함하기 위한 옵션
+    })
     .then((response) => {
       console.log(response);
       return response.data;

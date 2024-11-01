@@ -14,8 +14,8 @@ app.use(
   cors({
     origin: [
       "https://myblog-fullstack.onrender.com",
-      "100.20.92.101",
-      "https://my-blog-client-sigma.vercel.app",
+      // "100.20.92.101",
+      // "https://my-blog-client-sigma.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"], // 필요한 HTTP 메서드
