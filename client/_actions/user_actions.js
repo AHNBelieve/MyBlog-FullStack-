@@ -8,6 +8,7 @@ export function loginUser(dataToSubmit) {
     })
     .then((response) => {
       console.log(response);
+      console.log(response.cookies);
       return response.data;
     })
     .catch((err) => {
