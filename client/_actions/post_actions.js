@@ -3,7 +3,7 @@ import { LOAD_POST, DELETE_POST, EDIT_POST, NEW_POST } from "./types";
 
 export function postLoad(page = 1) {
   const request = axios
-    .get(`/api/post/load?page=${page}`)
+    .get(`${import.meta.env.VITE_API_URL}/api/post/load?page=${page}`)
     .then((response) => {
       return response.data;
     })
@@ -19,7 +19,7 @@ export function postLoad(page = 1) {
 //여기부터.
 export function newPost(dataToSubmit) {
   const request = axios
-    .post("/api/post/new", dataToSubmit)
+    .post(`${import.meta.env.VITE_API_URL}/api/post/new`, dataToSubmit)
     .then((response) => response.data);
   return {
     type: NEW_POST,
@@ -29,7 +29,7 @@ export function newPost(dataToSubmit) {
 
 export function editPost(dataTosubmit) {
   const request = axios
-    .post(`/api/post/edit`, dataTosubmit)
+    .post(`${import.meta.env.VITE_API_URL}/api/post/edit`, dataTosubmit)
     .then((response) => response.data)
     .catch((err) => err);
   return {
@@ -41,7 +41,7 @@ export function editPost(dataTosubmit) {
 //추가적으로 개발한 로그아웃 액션함수
 export function deletePost(id) {
   const request = axios
-    .delete(`/api/post/delete/${id}`)
+    .delete(`${import.meta.env.VITE_API_URL}/api/post/delete/${id}`)
     .then((response) => response.data)
     .catch((err) => {
       alert(err.response.data.message || "An error occurred");
