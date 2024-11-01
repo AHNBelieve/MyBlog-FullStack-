@@ -90,10 +90,17 @@ app.post("/api/users/login", (req, res) => {
     })
     .then((user) => {
       //토큰을 클라이언트의 쿠키에 저장한다.
-      return res.cookie("x_auth", user.token).status(200).json({
-        loginSuccess: true,
-        userId: user._id,
-      });
+      return res
+        .cookie("x_auth", user.token, {
+          httpOnly: true, // 클라이언트에서 쿠키에 접근할 수 없음
+          secure: true, // HTTPS에서만 쿠키가 전송됨 (배포 환경에서 true)
+          sameSite: "None", // 다른 도메인에서 쿠키를 사용 가능하도록 설정
+        })
+        .status(200)
+        .json({
+          loginSuccess: true,
+          userId: user._id,
+        });
     })
     .catch((err) => {
       return res.status(400).json({
