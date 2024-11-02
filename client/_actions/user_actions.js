@@ -32,7 +32,9 @@ export function registerUser(dataToSubmit) {
 
 export function auth() {
   const request = axios
-    .get(`${import.meta.env.VITE_API_URL}/api/users/auth`)
+    .get(`${import.meta.env.VITE_API_URL}/api/users/auth`, {
+      withCredentials: true, // 쿠키를 포함하도록 설정
+    })
     .then((response) => response.data)
     .catch((err) => err);
   return {

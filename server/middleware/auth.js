@@ -1,6 +1,7 @@
 const { User } = require("../models/User");
 
 const auth = (req, res, next) => {
+  console.log(req.cookies);
   if (!req.cookies.x_auth) {
     return res
       .status(401)
