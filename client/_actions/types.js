@@ -8,3 +8,6 @@ export const LOAD_POST = "load_post";
 export const NEW_POST = "new_post";
 export const EDIT_POST = "edit_post";
 export const DELETE_POST = "delete_post";
+//config
+export const SET_PAGE_NUMBER = "set_page_number";
+export const SET_SEARCH_QUERY = "set_search_query";

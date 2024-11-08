@@ -3,9 +3,15 @@ import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from "./types";
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post(`${import.meta.env.VITE_API_URL}/api/users/login`, dataToSubmit, {
-      withCredentials: true, // 쿠키를 포함하기 위한 옵션
-    })
+    .post(
+      import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/api/users/login`
+        : "/api/users/login",
+      dataToSubmit,
+      {
+        withCredentials: true, // 쿠키를 포함하기 위한 옵션
+      }
+    )
     .then((response) => {
       console.log(response);
       console.log(response.cookies);
@@ -22,7 +28,12 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
   const request = axios
-    .post(`${import.meta.env.VITE_API_URL}/api/users/register`, dataToSubmit)
+    .post(
+      import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/api/users/register`
+        : "/api/users/register",
+      dataToSubmit
+    )
     .then((response) => response.data);
   return {
     type: REGISTER_USER,
@@ -32,9 +43,14 @@ export function registerUser(dataToSubmit) {
 
 export function auth() {
   const request = axios
-    .get(`${import.meta.env.VITE_API_URL}/api/users/auth`, {
-      withCredentials: true, // 쿠키를 포함하도록 설정
-    })
+    .get(
+      import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/api/users/auth`
+        : "/api/users/auth",
+      {
+        withCredentials: true, // 쿠키를 포함하도록 설정
+      }
+    )
     .then((response) => response.data)
     .catch((err) => err);
   return {
@@ -46,9 +62,14 @@ export function auth() {
 //추가적으로 개발한 로그아웃 액션함수
 export function logoutUser() {
   const request = axios
-    .get(`${import.meta.env.VITE_API_URL}/api/users/logout`, {
-      withCredentials: true, // 쿠키를 포함하기 위한 옵션
-    })
+    .get(
+      import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/api/users/logout`
+        : "/api/users/logout",
+      {
+        withCredentials: true, // 쿠키를 포함하기 위한 옵션
+      }
+    )
     .then((response) => response.data)
     .catch((err) => {
       alert(err.message);

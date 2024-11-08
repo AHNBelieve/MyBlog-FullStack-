@@ -15,66 +15,9 @@ import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
 import Header from "./components/Header";
 
-// 적용 됐는지 확인!
-//Reducer
-// function reducer(state, action) {
-//   let nextState;
-
-//   switch (action.type) {
-//     case "INIT": {
-//       return action.data;
-//     }
-//     case "CREATE": {
-//       nextState = [action.data, ...state];
-//       return nextState;
-//     }
-//     case "UPDATE": {
-//       nextState = state.map((item) =>
-//         String(item.id) === String(action.data.id) ? action.data : item
-//       );
-//       break;
-//     }
-//     case "DELETE": {
-//       nextState = state.filter((item) => String(item.id) !== String(action.id));
-//       break;
-//     }
-//     default:
-//       return state;
-//   }
-//   localStorage.setItem("Post", JSON.stringify(nextState));
-//   return nextState;
-// }
-
 function App() {
   const dispatch = useDispatch();
   const page = useRef(1);
-  //배포 서버 연결 작업 테스트
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/endpoint`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const jsonData = await response.json();
-        console.log(jsonData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     dispatch(postLoad(page))
