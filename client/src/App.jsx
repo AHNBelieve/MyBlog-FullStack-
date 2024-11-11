@@ -2,7 +2,7 @@ import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postLoad } from "../_actions/post_actions";
 
 import Home from "./pages/Home";
@@ -14,21 +14,32 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
 import Header from "./components/Header";
+import { setPageNumber } from "../_actions/config_action";
 
 function App() {
   const dispatch = useDispatch();
-  const page = useRef(1);
+  const config = useSelector((state) => state.config);
 
   useEffect(() => {
-    dispatch(postLoad(page))
-      .then((response) => {
-        // payload에서 데이터 가져오기
+    // 페이지 번호를 1로 초기화
+    dispatch(setPageNumber(1));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const response = await dispatch(postLoad(config));
         console.log("현재 포스트: ", response.value);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-      });
-  }, [dispatch, page]);
+      }
+    };
+
+    // pageNumber가 변경될 때만 서버에서 데이터 로드
+    if (config.pageNumber > 0) {
+      loadPosts();
+    }
+  }, [dispatch, config.pageNumber]);
 
   return (
     <>

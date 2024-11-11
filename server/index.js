@@ -158,11 +158,23 @@ app.get("/api/users/logout", auth, (req, res) => {
 });
 
 app.get("/api/post/load", async (req, res) => {
-  const page = parseInt(req.query.page);
-  const limit = 10;
-  const skip = (page - 1) * limit;
+  const page = parseInt(req.query.page) || 1;
+  const query = req.query.query || "";
+  const limit = page * 5; // 페이지 번호에 따라 증가하는 limit
+  const skip = 0; // 항상 처음부터 로드
+
   try {
-    const posts = await Post.find()
+    // 검색어가 있다면 제목 또는 내용에 포함된 포스트를 찾습니다.
+    const filter = query
+      ? {
+          $or: [
+            { title: { $regex: query, $options: "i" } },
+            { content: { $regex: query, $options: "i" } },
+          ],
+        }
+      : {};
+
+    const posts = await Post.find(filter)
       .sort({ createdDate: -1 })
       .skip(skip)
       .limit(limit);

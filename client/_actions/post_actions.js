@@ -1,12 +1,15 @@
 import axios from "axios";
 import { LOAD_POST, DELETE_POST, EDIT_POST, NEW_POST } from "./types";
 
-export function postLoad(page = 1) {
+export function postLoad(config) {
+  console.log(config);
   const request = axios
     .get(
       import.meta.env.VITE_API_URL
-        ? `${import.meta.env.VITE_API_URL}/api/post/load?page=${page}`
-        : "/api/post/load?page=${page}"
+        ? `${import.meta.env.VITE_API_URL}/api/post/load?page=${
+            config.pageNumber
+          }?query=${config.searhchQuery}`
+        : `/api/post/load?page=${config.pageNumber}?query=${config.searhchQuery}`
     )
     .then((response) => {
       return response.data;
