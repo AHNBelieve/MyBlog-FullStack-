@@ -14,7 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
 import Header from "./components/Header";
-import { setPageNumber } from "../_actions/config_action";
+import { setPageNumber, setSearchQuery } from "../_actions/config_action";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function App() {
   useEffect(() => {
     // 페이지 번호를 1로 초기화
     dispatch(setPageNumber(1));
+    dispatch(setSearchQuery(""));
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function App() {
     if (config.pageNumber > 0) {
       loadPosts();
     }
-  }, [dispatch, config.pageNumber]);
+  }, [dispatch, config.pageNumber, config.searchQuery]);
 
   return (
     <>

@@ -52,7 +52,9 @@ export function auth() {
       }
     )
     .then((response) => response.data)
-    .catch((err) => err);
+    .catch((err) => {
+      throw new Error(err);
+    });
   return {
     type: AUTH_USER,
     payload: request,

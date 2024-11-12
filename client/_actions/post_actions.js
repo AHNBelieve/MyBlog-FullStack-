@@ -8,8 +8,8 @@ export function postLoad(config) {
       import.meta.env.VITE_API_URL
         ? `${import.meta.env.VITE_API_URL}/api/post/load?page=${
             config.pageNumber
-          }?query=${config.searhchQuery}`
-        : `/api/post/load?page=${config.pageNumber}?query=${config.searhchQuery}`
+          }&query=${config.searhchQuery}`
+        : `/api/post/load?page=${config.pageNumber}&query=${config.searchQuery}`
     )
     .then((response) => {
       return response.data;

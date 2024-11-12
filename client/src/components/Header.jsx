@@ -4,14 +4,26 @@ import { logoutUser } from "../../_actions/user_actions";
 import { useDispatch } from "react-redux";
 import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
+import { setSearchQuery } from "../../_actions/config_action";
+import { useState } from "react";
 
 const Header = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState("");
 
   const RegisterButton = authBlind(Button, "GUEST");
   const LoginButton = authBlind(Button, "GUEST");
   const LogoutButton = authBlind(Button, "USER");
+  console.log(inputValue);
+
+  const changeHandler = (e) => {
+    setInputValue(e.target.value);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(setSearchQuery(inputValue));
+  };
 
   const LogoutHandler = () => {
     dispatch(logoutUser()).then((response) => {
@@ -35,17 +47,19 @@ const Header = () => {
         >
           MyBlog
         </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <form onSubmit={submitHandler} className="d-flex" role="search">
+          <input
+            className="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            value={inputValue}
+            onChange={changeHandler}
+          />
+          <button className="btn btn-outline-success" type="submit">
+            Search
+          </button>
+        </form>
         <div className="d-flex">
           <RegisterButton
             onClickHandler={() => {
