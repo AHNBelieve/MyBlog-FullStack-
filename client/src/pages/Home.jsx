@@ -30,6 +30,9 @@ const Home = () => {
         }}
         text="NewPost"
       ></NewPostButton>
+      <h3 style={{ marginTop: "100px", marginBottom: "100px" }}>
+        아래로 당기면 더 많은 포스트가 로드됩니다.
+      </h3>
     </div>
   );
 };

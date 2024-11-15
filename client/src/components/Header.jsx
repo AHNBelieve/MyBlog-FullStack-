@@ -23,6 +23,7 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(setSearchQuery(inputValue));
+    nav("/");
   };
 
   const LogoutHandler = () => {
@@ -41,6 +42,8 @@ const Header = () => {
         <a
           className="navbar-brand"
           onClick={() => {
+            setInputValue("");
+            dispatch(setSearchQuery(""));
             nav("/");
           }}
           style={{ color: "white" }}
