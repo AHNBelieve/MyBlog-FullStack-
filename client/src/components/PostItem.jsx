@@ -3,7 +3,7 @@ import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-const PostItem = ({ _id, title, createdDate }) => {
+const PostItem = ({ _id, title, createdDate, writer }) => {
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN");
   return (
@@ -17,6 +17,12 @@ const PostItem = ({ _id, title, createdDate }) => {
           onClick={() => nav(`/post/${_id}`)}
         >
           {new Date(createdDate).toLocaleDateString()}
+        </h6>
+        <h6
+          className="card-subtitle mb-2 text-body-secondary"
+          onClick={() => nav(`/post/${_id}`)}
+        >
+          {writer}
         </h6>
         <EditButton
           onClickHandler={() => {

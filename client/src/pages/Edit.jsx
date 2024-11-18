@@ -4,7 +4,7 @@ import { usePost } from "../components/hooks/usePost";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
-import { editPost, deletePost } from "../../_actions/post_actions";
+import { editPost, deletePost, postLoad } from "../../_actions/post_actions";
 import usePageTitle from "../components/hooks/usePageTitle";
 
 const Edit = () => {
@@ -32,6 +32,7 @@ const Edit = () => {
   const onClickDelete = () => {
     if (window.confirm("Delete?")) {
       dispatch(deletePost(curPostItem._id)).then(() => {
+        dispatch(postLoad);
         nav("/", { replace: true });
       });
     }

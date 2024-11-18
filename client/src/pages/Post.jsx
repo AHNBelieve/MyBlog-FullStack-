@@ -14,11 +14,16 @@ const Post = () => {
       </div>
     );
   }
-  const { createdDate, title, content } = curPostItem;
+  const { createdDate, title, content, writer } = curPostItem;
   const date = new Date(createdDate).toLocaleDateString();
   return (
     <div>
-      <Viewer createdDate={date} title={title} content={content}></Viewer>
+      <Viewer
+        createdDate={date}
+        title={title}
+        content={content}
+        writer={writer}
+      ></Viewer>
     </div>
   );
 };
