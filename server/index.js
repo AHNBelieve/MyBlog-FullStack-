@@ -188,6 +188,7 @@ app.get("/api/post/load", async (req, res) => {
 //Post
 app.post("/api/post/new", (req, res) => {
   const post = new Post(req.body);
+  console.log(req.body);
   post
     .save()
     .then(() => {

@@ -12,6 +12,12 @@ const postSchema = mongoose.Schema({
   createdDate: {
     type: Number,
   },
+  writer: {
+    type: String,
+  },
+  writerCode: {
+    type: String,
+  },
 });
 
 const Post = mongoose.model("Post", postSchema);
