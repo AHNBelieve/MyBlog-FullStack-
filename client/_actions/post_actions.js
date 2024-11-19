@@ -8,7 +8,7 @@ export function postLoad(config = { pageNumber: 1, searchQuery: "" }) {
       import.meta.env.VITE_API_URL
         ? `${import.meta.env.VITE_API_URL}/api/post/load?page=${
             config.pageNumber
-          }&query=${config.searhchQuery}`
+          }&query=${config.searchQuery}`
         : `/api/post/load?page=${config.pageNumber}&query=${config.searchQuery}`
     )
     .then((response) => {
