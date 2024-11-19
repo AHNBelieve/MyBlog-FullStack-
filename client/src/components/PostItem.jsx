@@ -3,9 +3,9 @@ import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-const PostItem = ({ _id, title, createdDate, writer }) => {
+const PostItem = ({ _id, title, createdDate, writer, writerCode }) => {
   const nav = useNavigate();
-  const EditButton = authBlind(Button, "ADMIN");
+  const EditButton = authBlind(Button, "ADMIN", writerCode);
   return (
     <div className="card" style={{ width: "auto" }}>
       <div className="card-body">

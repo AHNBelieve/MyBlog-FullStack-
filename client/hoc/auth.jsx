@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../_actions/user_actions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function authWithDispatch(
   SpecificComponent,
@@ -16,6 +16,7 @@ export default function authWithDispatch(
   function AuthenticationCheck(props) {
     const nav = useNavigate();
     const dispatch = useDispatch();
+    const params = useParams;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -43,7 +44,11 @@ export default function authWithDispatch(
           }
           setLoading(false);
         })
-        .catch((err) => {
+        .catch(() => {
+          if (option) {
+            nav("/login");
+          }
+
           setLoading(false);
         });
     }, [dispatch, nav]);

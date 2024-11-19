@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { usePost } from "../components/hooks/usePost";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editPost, deletePost, postLoad } from "../../_actions/post_actions";
 import usePageTitle from "../components/hooks/usePageTitle";
 
@@ -11,6 +11,7 @@ const Edit = () => {
   const nav = useNavigate();
   const params = useParams();
   const curPostItem = usePost(params._id);
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
   usePageTitle("수정하기");
 
@@ -38,15 +39,24 @@ const Edit = () => {
     }
     return;
   };
+  console.log(state);
   if (!curPostItem) {
     return (
       <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
+        <span className="visually-hidden"></span>
       </div>
     );
   }
-  // const { createdDate, title, content } = curPostItem;
-  // const date = new Date(createdDate).toLocaleDateString();
+  if (
+    state.user.userData &&
+    curPostItem.writerCode !== state.user.userData._id
+  ) {
+    return (
+      <div>
+        <h4>This post isn't yours. Get away.</h4>
+      </div>
+    );
+  }
   return (
     <div>
       <h4>Edit</h4>

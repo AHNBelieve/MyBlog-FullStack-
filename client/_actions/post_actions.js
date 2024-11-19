@@ -2,7 +2,6 @@ import axios from "axios";
 import { LOAD_POST, DELETE_POST, EDIT_POST, NEW_POST } from "./types";
 
 export function postLoad(config = { pageNumber: 1, searchQuery: "" }) {
-  console.log(config);
   const request = axios
     .get(
       import.meta.env.VITE_API_URL

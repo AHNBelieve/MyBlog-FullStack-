@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
 
-export default function authBlind(Component, option) {
+export default function authBlind(Component, option, writerCode = "") {
   return function AuthBlindComponent(props) {
     const user = useSelector((state) => state.user);
     let shouldRender = false;
     if (option === "ADMIN") {
       shouldRender = user.userData && user.userData.isAdmin;
+      if (writerCode) {
+        shouldRender = shouldRender && writerCode === user.userData._id;
+      }
     }
     if (option === "GUEST") {
       shouldRender = !user.userData;

@@ -51,9 +51,11 @@ export function auth() {
         withCredentials: true, // 쿠키를 포함하도록 설정
       }
     )
-    .then((response) => response.data)
+    .then((response) => {
+      return response.data;
+    })
     .catch((err) => {
-      throw new Error(err);
+      return err.response;
     });
   return {
     type: AUTH_USER,

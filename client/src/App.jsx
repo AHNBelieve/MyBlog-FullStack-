@@ -30,7 +30,6 @@ function App() {
     const loadPosts = async () => {
       try {
         const response = await dispatch(postLoad(config));
-        console.log("현재 포스트: ", response.value);
       } catch (err) {
         console.log(err);
       }

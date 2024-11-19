@@ -170,6 +170,7 @@ app.get("/api/post/load", async (req, res) => {
           $or: [
             { title: { $regex: query, $options: "i" } },
             { content: { $regex: query, $options: "i" } },
+            { writer: { $regex: query, $options: "i" } },
           ],
         }
       : {};
