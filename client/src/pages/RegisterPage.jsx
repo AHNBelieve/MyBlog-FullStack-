@@ -31,7 +31,15 @@ function RegisterPage(props) {
         nav("/");
         alert("계정이 성공적으로 만들어졌습니다!");
       } else {
-        alert("잘못된 형식입니다.");
+        console.log(response.value);
+        if (response.value.err.code === 11000) {
+          if (Object.keys(response.value.err.keyValue)[0] === "email")
+            alert("같은 메일로 아이디를 만들 수 없습니다.");
+          else if (Object.keys(response.value.err.keyValue)[0] === "name")
+            alert("이미 존재하는 이름입니다.");
+        } else {
+          alert("잘못된 형식입니다.");
+        }
       }
     });
   };

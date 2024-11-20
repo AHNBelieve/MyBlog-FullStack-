@@ -18,6 +18,9 @@ const postSchema = mongoose.Schema({
   writerCode: {
     type: String,
   },
+  commentCount: {
+    type: Number,
+  },
 });
 
 const Post = mongoose.model("Post", postSchema);

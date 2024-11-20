@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { User } = require("./models/User");
 const { Post } = require("./models/Post");
+const { Comment } = require("./models/Comment");
 const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 
@@ -189,7 +190,7 @@ app.get("/api/post/load", async (req, res) => {
 //Post
 app.post("/api/post/new", (req, res) => {
   const post = new Post(req.body);
-  console.log(req.body);
+  console.log(post);
   post
     .save()
     .then(() => {
@@ -220,11 +221,57 @@ app.post("/api/post/edit", async (req, res) => {
 });
 
 app.delete("/api/post/delete/:_id", async (req, res) => {
-  Post.deleteOne({ _id: req.params._id })
-    .then(() => {
-      res.status(200).json({ success: true });
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "삭제 실패", err });
+  const postId = req.params._id;
+
+  try {
+    // 1. 해당 포스트에 달린 댓글들 삭제
+    await Comment.deleteMany({ postId });
+
+    // 2. 포스트 삭제
+    await Post.deleteOne({ _id: postId });
+
+    res.status(200).json({
+      success: true,
+      message: "Post and its comments deleted successfully.",
     });
+  } catch (err) {
+    res.status(400).json({ message: "삭제 실패", err });
+  }
+});
+
+app.get("/api/post/:_id/comments", async (req, res) => {
+  try {
+    const postId = req.params._id;
+
+    // 해당 게시물의 모든 댓글 가져오기
+    const comments = await Comment.find({ postId }).sort({ createdAt: -1 }); // 최신순 정렬
+
+    res.json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to load comments" });
+  }
+});
+
+app.post("/api/post/:_id/comment/new", async (req, res) => {
+  try {
+    const postId = req.params._id;
+    const { writer, content, createdDate } = req.body;
+    console.log(req.params._id);
+    const newComment = new Comment({
+      postId,
+      writer,
+      content,
+      createdDate,
+    });
+    console.log(newComment);
+    await newComment.save();
+
+    await Post.findByIdAndUpdate(postId, { $inc: { commentCount: 1 } });
+
+    res.status(201).json(newComment);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "faild to create comment" });
+  }
 });

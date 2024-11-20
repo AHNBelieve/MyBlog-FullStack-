@@ -3,14 +3,21 @@ import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-const PostItem = ({ _id, title, createdDate, writer, writerCode }) => {
+const PostItem = ({
+  _id,
+  title,
+  createdDate,
+  writer,
+  writerCode,
+  commentCount,
+}) => {
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN", writerCode);
   return (
     <div className="card" style={{ width: "auto" }}>
       <div className="card-body">
         <h5 className="card-title" onClick={() => nav(`/post/${_id}`)}>
-          {title}
+          {title + `(${commentCount})`}
         </h5>
         <h6
           className="card-subtitle mb-2 text-body-secondary"

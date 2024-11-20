@@ -18,6 +18,7 @@ const New = () => {
         content: input.content,
         writer: user.userData.name,
         writerCode: user.userData._id,
+        commentCount: 0,
       })
     ).then((response) => {
       console.log(response);
