@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Post } = require("./Post");
+const { User } = require("./User");
 
 const commentSchema = mongoose.Schema({
   content: {
@@ -7,6 +8,11 @@ const commentSchema = mongoose.Schema({
   },
   writer: {
     type: String,
+  },
+  writerCode: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User,
+    required: true,
   },
   postId: {
     type: mongoose.Schema.Types.ObjectId,

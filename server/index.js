@@ -256,11 +256,12 @@ app.get("/api/post/:_id/comments", async (req, res) => {
 app.post("/api/post/:_id/comment/new", async (req, res) => {
   try {
     const postId = req.params._id;
-    const { writer, content, createdDate } = req.body;
+    const { writer, content, createdDate, writerCode } = req.body;
     console.log(req.params._id);
     const newComment = new Comment({
       postId,
       writer,
+      writerCode,
       content,
       createdDate,
     });
@@ -273,5 +274,26 @@ app.post("/api/post/:_id/comment/new", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "faild to create comment" });
+  }
+});
+
+app.delete("/api/comment/delete/:_id", async (req, res) => {
+  const comment = await Comment.findById(req.params._id);
+  if (!comment) {
+    return res.status(404).json({ message: "You can't delete it" });
+  }
+  try {
+    // 2. 포스트 삭제
+    await Comment.deleteOne({ _id: comment._id });
+
+    await Post.findByIdAndUpdate(comment.postId, {
+      $inc: { commentCount: -1 },
+    });
+    res.status(200).json({
+      success: true,
+      message: "Post and its comments deleted successfully.",
+    });
+  } catch (err) {
+    res.status(400).json({ message: "삭제 실패", err });
   }
 });

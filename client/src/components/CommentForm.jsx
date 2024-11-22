@@ -21,6 +21,7 @@ function CommentForm({ postId, onCommentAdded }) {
           },
           body: JSON.stringify({
             writer: userData.name,
+            writerCode: userData._id,
             content,
             createdDate: new Date().getTime(),
           }),
@@ -30,15 +31,13 @@ function CommentForm({ postId, onCommentAdded }) {
       if (!response.ok) {
         throw new Error("Failed to create comment");
       }
-
       const newComment = await response.json();
       onCommentAdded(newComment);
       setContent(""); // 입력 필드 초기화
-      setWriter("");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
-
     setLoading(false);
   };
   return (

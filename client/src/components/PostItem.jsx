@@ -17,7 +17,7 @@ const PostItem = ({
     <div className="card" style={{ width: "auto" }}>
       <div className="card-body">
         <h5 className="card-title" onClick={() => nav(`/post/${_id}`)}>
-          {title + `(${commentCount})`}
+          {title + ` (${commentCount})`}
         </h5>
         <h6
           className="card-subtitle mb-2 text-body-secondary"

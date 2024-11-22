@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const response = await dispatch(postLoad(config));
+        dispatch(postLoad(config));
       } catch (err) {
         console.log(err);
       }

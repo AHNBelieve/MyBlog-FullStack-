@@ -12,21 +12,23 @@ const Header = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const user = useSelector((state) => state.user);
-  console.log(user);
-
+  //Button Blind for each rule
   const RegisterButton = authBlind(Button, "GUEST");
   const LoginButton = authBlind(Button, "GUEST");
   const LogoutButton = authBlind(Button, "USER");
 
+  //Handler
+  //SearchHandler
   const changeHandler = (e) => {
     setInputValue(e.target.value);
   };
+  //SubmitHandler
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(setSearchQuery(inputValue));
     nav("/");
   };
-
+  //LogoutHandler
   const LogoutHandler = () => {
     dispatch(logoutUser()).then((response) => {
       if (response) {
@@ -67,8 +69,9 @@ const Header = () => {
         <div className="d-flex">
           {user.userData ? (
             <h6
+              className="navbar-brand"
               style={{ color: "white" }}
-            >{`${user.userData.name}님 안녕하세요!`}</h6>
+            >{`${user.userData.name}`}</h6>
           ) : null}
           <RegisterButton
             onClickHandler={() => {

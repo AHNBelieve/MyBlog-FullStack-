@@ -6,18 +6,18 @@ import Button from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost, deletePost, postLoad } from "../../_actions/post_actions";
 import usePageTitle from "../components/hooks/usePageTitle";
+import Loading from "../components/Loading";
 
 const Edit = () => {
   const nav = useNavigate();
   const params = useParams();
   const curPostItem = usePost(params._id);
-  const state = useSelector((state) => state);
+  const userData = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   usePageTitle("수정하기");
 
   const onSubmit = (input) => {
     if (window.confirm("Save?")) {
-      console.log("?");
       dispatch(
         editPost({
           _id: curPostItem._id,
@@ -26,36 +26,28 @@ const Edit = () => {
           content: input.content,
         })
       ).then(() => {
-        nav("/", { replace: true });
+        dispatch(postLoad);
+        nav("/");
+        window.location.reload();
       });
     }
+    return;
   };
   const onClickDelete = () => {
     if (window.confirm("Delete?")) {
       dispatch(deletePost(curPostItem._id)).then(() => {
         dispatch(postLoad);
-        nav("/", { replace: true });
+        nav("/");
+        window.location.reload();
       });
     }
     return;
   };
-  console.log(state);
   if (!curPostItem) {
-    return (
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden"></span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
-  if (
-    state.user.userData &&
-    curPostItem.writerCode !== state.user.userData._id
-  ) {
-    return (
-      <div>
-        <h4>This post isn't yours. Get away.</h4>
-      </div>
-    );
+  if (userData && curPostItem.writerCode !== userData._id) {
+    return <Loading></Loading>;
   }
   return (
     <div>

@@ -119,7 +119,7 @@ function RegisterPage(props) {
             ></input>
           </div>
           <br />
-          <button class="btn btn-success" type="Submit">
+          <button className="btn btn-success" type="Submit">
             Register
           </button>
         </form>

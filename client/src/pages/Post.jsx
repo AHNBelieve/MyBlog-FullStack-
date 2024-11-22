@@ -6,6 +6,7 @@ import CommentList from "../components/CommentList";
 import authBlind from "../../hoc/authBlind";
 import CommentForm from "../components/CommentForm";
 import { useState } from "react";
+import Loading from "../components/Loading";
 
 const Post = () => {
   const params = useParams();
@@ -19,11 +20,7 @@ const Post = () => {
   };
 
   if (!curPostItem) {
-    return (
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
   //이 밑에서부터는 이 데이터가 있기에!
   const { createdDate, title, content, writer } = curPostItem;

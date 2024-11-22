@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import PostItem from "./PostItem";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageNumber } from "../../_actions/config_action";
+import Loading from "./Loading";
 
 const PostList = () => {
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,9 @@ const PostList = () => {
     }
   }, [data]);
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       {data.map((item) => (

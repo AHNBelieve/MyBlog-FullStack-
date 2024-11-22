@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../_actions/user_actions";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../src/components/Loading";
 
 export default function authWithDispatch(
   SpecificComponent,
@@ -54,7 +55,7 @@ export default function authWithDispatch(
     }, [dispatch, nav]);
 
     if (loading) {
-      return <div>Loading</div>;
+      return <Loading></Loading>;
     }
     return <SpecificComponent {...props}></SpecificComponent>;
   }

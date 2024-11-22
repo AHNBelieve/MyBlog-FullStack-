@@ -16,7 +16,7 @@ const postSchema = mongoose.Schema({
     type: String,
   },
   writerCode: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
   },
   commentCount: {
     type: Number,
