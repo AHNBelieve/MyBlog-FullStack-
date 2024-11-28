@@ -23,15 +23,17 @@ const Post = () => {
     return <Loading></Loading>;
   }
   //이 밑에서부터는 이 데이터가 있기에!
-  const { createdDate, title, content, writer } = curPostItem;
+  const { _id, createdDate, title, content, writer, writerCode } = curPostItem;
   const date = new Date(createdDate).toLocaleDateString();
   return (
     <div>
       <Viewer
+        _id={_id}
         createdDate={date}
         title={title}
         content={content}
         writer={writer}
+        writerCode={writerCode}
       ></Viewer>
       <div>
         <CommentList

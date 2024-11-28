@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import Button from "./Button";
 import authBlind from "../../hoc/authBlind";
+import { FaTrash } from "react-icons/fa";
 
 function CommentList({ comments, setComments, postId }) {
   const [loading, setLoading] = useState(1);
@@ -60,26 +61,39 @@ function CommentList({ comments, setComments, postId }) {
     return <Loading></Loading>;
   }
   return (
-    <div>
-      <h3>Comments</h3>
-      {comments.length === 0 && (
-        <p>No comments yet. Be the first to comment!</p>
-      )}
-      {comments.map((comment) => (
-        <div key={comment._id} style={{ marginBottom: "1rem" }}>
-          <p>
-            <strong>{comment.writer}</strong>: {comment.content}
-          </p>
-          <small>{new Date(comment.createdDate).toLocaleString()}</small>
-          <DeleteButton
-            onClickHandler={() => {
-              onCickDelete(comment._id);
-            }}
-            text={"Delete"}
-            writerCode={comment.writerCode}
-          ></DeleteButton>
-        </div>
-      ))}
+    <div className="container mx-auto px-6 py-3">
+      <div className="mt-8 bg-white shadow-xl drop-shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 select-none">
+          Comments
+        </h2>
+        {comments.map((comment) => (
+          <div
+            key={comment._id}
+            className="bg-white shadow-xl drop-shadow-md rounded-lg p-4 mb-4"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-gray-800">
+                {comment.writer}
+              </span>
+              <span className="text-sm text-gray-600">
+                {new Date(comment.createdDate).toLocaleDateString()}
+              </span>
+            </div>
+            <p className="text-gray-700">{comment.content}</p>
+            <div className="flex justify-end">
+              <DeleteButton
+                text=""
+                icon={FaTrash}
+                onClickHandler={() => {
+                  onCickDelete(comment._id);
+                }}
+                className="text-red-500 hover:text-red-700"
+                writerCode={comment.writerCode}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

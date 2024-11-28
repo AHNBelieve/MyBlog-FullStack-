@@ -17,7 +17,7 @@ const Edit = () => {
   usePageTitle("수정하기");
 
   const onSubmit = (input) => {
-    if (window.confirm("Save?")) {
+    if (window.confirm("저장해요?")) {
       dispatch(
         editPost({
           _id: curPostItem._id,
@@ -51,9 +51,11 @@ const Edit = () => {
   }
   return (
     <div>
-      <h4>Edit</h4>
-      <Editor initData={curPostItem} onSubmit={onSubmit} />
-      <Button onClickHandler={onClickDelete} text="DELETE"></Button>
+      <Editor
+        initData={curPostItem}
+        onClickDelete={onClickDelete}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };

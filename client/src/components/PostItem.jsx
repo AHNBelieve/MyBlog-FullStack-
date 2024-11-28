@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
 import PropTypes from "prop-types";
+import { FaEdit } from "react-icons/fa";
 
 const PostItem = ({
   _id,
@@ -14,29 +15,16 @@ const PostItem = ({
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN", writerCode);
   return (
-    <div className="card" style={{ width: "auto" }}>
-      <div className="card-body">
-        <h5 className="card-title" onClick={() => nav(`/post/${_id}`)}>
-          {title + ` (${commentCount})`}
-        </h5>
-        <h6
-          className="card-subtitle mb-2 text-body-secondary"
-          onClick={() => nav(`/post/${_id}`)}
-        >
-          {new Date(createdDate).toLocaleDateString()}
-        </h6>
-        <h6
-          className="card-subtitle mb-2 text-body-secondary"
-          onClick={() => nav(`/post/${_id}`)}
-        >
-          {writer}
-        </h6>
-        <EditButton
-          onClickHandler={() => {
-            nav(`/edit/${_id}`);
-          }}
-          text={"수정하기"}
-        />
+    <div
+      className="bg-white shadow-lg rounded-lg p-6 relative hover:bg-gray-100 cursor-pointer select-none"
+      onClick={() => nav(`/post/${_id}`)}
+    >
+      <h2 className="text-xl font-semibold text-gray-800 mb-2">
+        {title + ` (${commentCount})`}
+      </h2>
+      <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+        <span>By {writer}</span>
+        <span>{new Date(createdDate).toLocaleDateString()}</span>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../_actions/user_actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +5,7 @@ import authBlind from "../../hoc/authBlind";
 import Button from "./Button";
 import { setSearchQuery } from "../../_actions/config_action";
 import { useState } from "react";
+import { FaSearch, FaUser } from "react-icons/fa";
 
 const Header = () => {
   const nav = useNavigate();
@@ -37,64 +37,66 @@ const Header = () => {
     });
   };
   return (
-    <nav
-      className="navbar bg-dark border-bottom border-body"
-      data-bs-theme="dark"
-    >
-      <div className="container-fluid">
-        <a
-          className="navbar-brand"
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div
+          className="text-2xl font-bold text-gray-800 cursor-pointer select-none"
           onClick={() => {
             setInputValue("");
             dispatch(setSearchQuery(""));
             nav("/");
           }}
-          style={{ color: "white" }}
         >
           MyBlog
-        </a>
-        <form onSubmit={submitHandler} className="d-flex" role="search">
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            value={inputValue}
-            onChange={changeHandler}
-          />
-          <button className="btn btn-outline-success" type="submit">
-            Search
-          </button>
+        </div>
+        <form onSubmit={submitHandler} className="flex-1 mx-4" role="search">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={inputValue}
+              onChange={changeHandler}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <Button
+              text=""
+              icon={FaSearch}
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            />
+          </div>
         </form>
-        <div className="d-flex">
+        <div className="flex items-center space-x-6">
           {user.userData ? (
-            <h6
-              className="navbar-brand"
-              style={{ color: "white" }}
-            >{`${user.userData.name}`}</h6>
+            <div className="flex items-center space-x-2">
+              <FaUser className="text-gray-600" />
+              <span className="text-gray-800">{user.userData.name}</span>
+            </div>
           ) : null}
-          <RegisterButton
-            onClickHandler={() => {
-              nav("/register");
-            }}
-            text={"회원가입"}
-            className="btn btn-outline-primary me-3" // 버튼 간격 조정
-          />
           <LoginButton
             onClickHandler={() => {
               nav("/login");
             }}
-            text={"로그인"}
-            className="btn btn-outline-primary me-3" // 버튼 간격 조정
+            text={"LOGIN"}
+            className="bg-blue-500 text-white hover:bg-blue-600"
           />
+          <RegisterButton
+            onClickHandler={() => {
+              nav("/register");
+            }}
+            text={"REGISTER"}
+            className="bg-blue-500 text-white hover:bg-blue-600"
+          />
+
           <LogoutButton
             onClickHandler={LogoutHandler}
-            text={"로그아웃"}
-            className="btn btn-outline-danger" // 버튼 스타일
+            text={"LOGOUT"}
+            className="bg-blue-500 text-white hover:bg-blue-600"
           />
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

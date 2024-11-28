@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import Button from "./Button";
 
 function CommentForm({ postId, onCommentAdded }) {
   const [loading, setLoading] = useState(false);
@@ -41,22 +42,27 @@ function CommentForm({ postId, onCommentAdded }) {
     setLoading(false);
   };
   return (
-    <div>
-      {" "}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Comment:
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-            />
-          </label>
+    <div className="container mx-auto px-6 py-3">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 bg-white shadow-lg rounded-lg p-6"
+      >
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Add a Comment</h2>
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+          rows="4"
+          placeholder="Write your comment here..."
+          required
+        ></textarea>
+        <div className="flex justify-end mt-2">
+          <Button
+            text="Submit Comment"
+            onClick={handleSubmit}
+            className="mt-2 bg-blue-500 text-white hover:bg-blue-600"
+          />
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Posting..." : "Post Comment"}
-        </button>
       </form>
     </div>
   );
