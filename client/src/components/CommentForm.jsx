@@ -8,8 +8,8 @@ function CommentForm({ postId, onCommentAdded }) {
   const [content, setContent] = useState("");
   const userData = useSelector((state) => state.user.userData);
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
+    e.preventDefault();
     try {
       const response = await fetch(
         import.meta.env.VITE_API_URL
