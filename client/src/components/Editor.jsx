@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 
 const Editor = ({ initData, onSubmit, onClickDelete }) => {
+  const [loading, setLoaidng] = useState(false);
   const [input, setInput] = useState({
     createdDate: new Date(),
     title: "",
@@ -26,8 +27,10 @@ const Editor = ({ initData, onSubmit, onClickDelete }) => {
     });
   };
   const onClickSubmitButton = (event) => {
+    setLoaidng(true);
     event.preventDefault();
     onSubmit(input);
+    setLoaidng(false);
   };
 
   return (
@@ -55,7 +58,7 @@ const Editor = ({ initData, onSubmit, onClickDelete }) => {
                 required
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-1">
               <label
                 htmlFor="content"
                 className="block text-gray-700 font-bold mb-2"
@@ -75,18 +78,20 @@ const Editor = ({ initData, onSubmit, onClickDelete }) => {
             <div className="flex justify-end space-x-2">
               <Button
                 text={initData ? "Save Changes" : "Create Post"}
-                onClickHandler={onClickSubmitButton}
+                onClickHandler={loading ? () => {} : onClickSubmitButton}
                 className="bg-blue-500 text-white hover:bg-blue-600"
               />
-              {initData ? (
-                <Button
-                  onClickHandler={onClickDelete}
-                  text="DELETE"
-                  className="bg-red-500 text-white hover:bg-red-800"
-                />
-              ) : null}
             </div>
           </form>
+          <div className="flex justify-end space-y-2 mt-1">
+            {initData ? (
+              <Button
+                onClickHandler={onClickDelete}
+                text="DELETE"
+                className="bg-red-500 text-white hover:bg-red-800"
+              />
+            ) : null}
+          </div>
         </div>
       </div>
     </>

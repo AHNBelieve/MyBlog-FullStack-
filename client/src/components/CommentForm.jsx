@@ -42,10 +42,10 @@ function CommentForm({ postId, onCommentAdded }) {
     setLoading(false);
   };
   return (
-    <div className="container mx-auto px-6 py-3">
+    <div className="container mx-auto px-4 py-6">
       <form
         onSubmit={handleSubmit}
-        className="mt-8 bg-white shadow-lg rounded-lg p-6"
+        className="mt-4 border-2 border-gray-100 bg-white shadow-xl drop-shadow-md rounded-lg p-6"
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Add a Comment</h2>
         <textarea
@@ -57,11 +57,18 @@ function CommentForm({ postId, onCommentAdded }) {
           required
         ></textarea>
         <div className="flex justify-end mt-2">
-          <Button
-            text="Submit Comment"
-            onClick={handleSubmit}
-            className="mt-2 bg-blue-500 text-white hover:bg-blue-600"
-          />
+          {loading ? (
+            <Button
+              text="Submit Comment"
+              className="mt-2 bg-gray-500 text-white"
+            />
+          ) : (
+            <Button
+              text="Submit Comment"
+              onClick={handleSubmit}
+              className="mt-2 bg-blue-500 text-white hover:bg-blue-700"
+            />
+          )}
         </div>
       </form>
     </div>

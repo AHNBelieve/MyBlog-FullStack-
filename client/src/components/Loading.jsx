@@ -1,10 +1,11 @@
 import React from "react";
+import { FaSpinner } from "react-icons/fa";
 
 const Loading = () => {
   return (
     <div style={styles.overlay}>
       <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden"></span>
+        <FaSpinner className="animate-spin text-blue-500 text-4xl"></FaSpinner>
       </div>
     </div>
   );

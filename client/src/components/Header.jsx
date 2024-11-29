@@ -38,18 +38,18 @@ const Header = () => {
   };
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="container ml-5 px-4 py-4 flex items-center justify-between">
         <div
-          className="text-2xl font-bold text-gray-800 cursor-pointer select-none"
+          className="text-3xl font-bold text-gray-800 hover:text-blue-800 cursor-pointer select-none"
           onClick={() => {
             setInputValue("");
             dispatch(setSearchQuery(""));
             nav("/");
           }}
         >
-          MyBlog
+          AhnBlog
         </div>
-        <form onSubmit={submitHandler} className="flex-1 mx-4" role="search">
+        <form onSubmit={submitHandler} className="flex-1 mx-10" role="search">
           <div className="relative">
             <input
               type="text"
@@ -78,21 +78,21 @@ const Header = () => {
             onClickHandler={() => {
               nav("/login");
             }}
-            text={"LOGIN"}
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            text={"Log In"}
+            className="mx-auto border border-gray-300 bg-white-500 text-black hover:bg-gray-300"
           />
           <RegisterButton
             onClickHandler={() => {
               nav("/register");
             }}
-            text={"REGISTER"}
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            text={"Sign Up"}
+            className="mr-8 bg-blue-500 text-white hover:bg-blue-700"
           />
 
           <LogoutButton
             onClickHandler={LogoutHandler}
-            text={"LOGOUT"}
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            text={"Sign Out"}
+            className="mr-8 bg-blue-500 text-white hover:bg-blue-700"
           />
         </div>
       </div>

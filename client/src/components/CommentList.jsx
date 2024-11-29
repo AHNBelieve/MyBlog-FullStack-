@@ -61,38 +61,48 @@ function CommentList({ comments, setComments, postId }) {
     return <Loading></Loading>;
   }
   return (
-    <div className="container mx-auto px-6 py-3">
-      <div className="mt-8 bg-white shadow-xl drop-shadow-md rounded-lg p-6">
+    <div className="container mx-auto px-4 pt-6">
+      <div className="mt-4 bg-white border-2 border-gray-100 shadow-md drop-shadow-md rounded-lg p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 select-none">
           Comments
         </h2>
-        {comments.map((comment) => (
-          <div
-            key={comment._id}
-            className="bg-white shadow-xl drop-shadow-md rounded-lg p-4 mb-4"
-          >
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-semibold text-gray-800">
-                {comment.writer}
-              </span>
-              <span className="text-sm text-gray-600">
-                {new Date(comment.createdDate).toLocaleDateString()}
-              </span>
-            </div>
-            <p className="text-gray-700">{comment.content}</p>
-            <div className="flex justify-end">
-              <DeleteButton
-                text=""
-                icon={FaTrash}
-                onClickHandler={() => {
-                  onCickDelete(comment._id);
-                }}
-                className="text-red-500 hover:text-red-700"
-                writerCode={comment.writerCode}
-              />
-            </div>
+        {comments[0] ? (
+          <div>
+            {comments.map((comment) => (
+              <div
+                key={comment._id}
+                className="bg-white border-2 border-gray-100 shadow-sm rounded-lg p-4 mb-4"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-semibold text-gray-800">
+                    {comment.writer}
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {new Date(comment.createdDate).toLocaleDateString()}
+                  </span>
+                </div>
+                <p className="text-gray-700">{comment.content}</p>
+                <div className="flex justify-end">
+                  <DeleteButton
+                    text=""
+                    icon={FaTrash}
+                    onClickHandler={() => {
+                      onCickDelete(comment._id);
+                    }}
+                    className="text-md text-red-500 hover:text-red-700"
+                    writerCode={comment.writerCode}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div>
+            <h4 className="text-xl font-bold text-blue-300 mb-4 select-none">
+              There are no comments here. Start the conversation!
+            </h4>
+          </div>
+        )}
       </div>
     </div>
   );

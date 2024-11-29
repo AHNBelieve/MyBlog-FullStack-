@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export const usePost = (_id) => {
   const nav = useNavigate();
-  const data = useSelector((state) => state.post);
+  const data = useSelector((state) => state.post.post);
   const [curPostItem, setCurrentPostItem] = useState();
   useEffect(() => {
     const currentPostItem = data.find(

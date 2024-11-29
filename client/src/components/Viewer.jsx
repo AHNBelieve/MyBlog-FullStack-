@@ -8,8 +8,8 @@ const Viewer = ({ _id, createdDate, title, content, writer, writerCode }) => {
   const nav = useNavigate();
   const EditButton = authBlind(Button, "ADMIN", writerCode);
   return (
-    <div className="container mx-auto px-4 py-8">
-      <article className="bg-white shadow-xl rounded-lg drop-shadow-md overflow-hidden">
+    <div className="container mx-auto px-4 pt-6">
+      <article className="bg-white border-2 border-gray-100 shadow-md rounded-lg drop-shadow-md overflow-hidden">
         <div className="p-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">{title}</h1>
           <div className="flex justify-between items-center text-sm text-gray-600 mb-8">

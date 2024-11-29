@@ -16,7 +16,7 @@ const PostItem = ({
   const EditButton = authBlind(Button, "ADMIN", writerCode);
   return (
     <div
-      className="bg-white shadow-lg rounded-lg p-6 relative hover:bg-gray-100 cursor-pointer select-none"
+      className="bg-white border-2 border-gray-100 shadow-lg rounded-lg p-6 relative hover:bg-gray-50 cursor-pointer select-none"
       onClick={() => nav(`/post/${_id}`)}
     >
       <h2 className="text-xl font-semibold text-gray-800 mb-2">

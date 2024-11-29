@@ -161,7 +161,7 @@ app.get("/api/users/logout", auth, (req, res) => {
 app.get("/api/post/load", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const query = req.query.query || "";
-  const limit = page * 12; // 페이지 번호에 따라 증가하는 limit
+  const limit = page * 3; // 페이지 번호에 따라 증가하는 limit
   const skip = 0; // 항상 처음부터 로드
 
   try {
@@ -175,13 +175,15 @@ app.get("/api/post/load", async (req, res) => {
           ],
         }
       : {};
+    const totalPosts = await Post.countDocuments(filter);
 
     const posts = await Post.find(filter)
       .sort({ createdDate: -1 })
       .skip(skip)
       .limit(limit);
+    const isLastPage = skip + limit >= totalPosts;
 
-    res.status(200).json(posts);
+    res.status(200).json({ posts, totalPosts, isLastPage });
   } catch (err) {
     res.status(500).json({ error: "Load Failed", err });
   }
