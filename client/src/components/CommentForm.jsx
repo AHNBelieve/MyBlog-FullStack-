@@ -57,18 +57,13 @@ function CommentForm({ postId, onCommentAdded }) {
           required
         ></textarea>
         <div className="flex justify-end mt-2">
-          {loading ? (
-            <Button
-              text="Submit Comment"
-              className="mt-2 bg-gray-500 text-white"
-            />
-          ) : (
-            <Button
-              text="Submit Comment"
-              onClick={handleSubmit}
-              className="mt-2 bg-blue-500 text-white hover:bg-blue-700"
-            />
-          )}
+          <Button
+            text={loading ? "Submitting..." : "Submit Comment"}
+            className={`mt-2 ${
+              loading ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-700"
+            } text-white`}
+            disabled={loading}
+          />
         </div>
       </form>
     </div>
