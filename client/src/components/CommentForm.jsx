@@ -55,6 +55,7 @@ function CommentForm({ postId, onCommentAdded }) {
           rows="4"
           placeholder="Write your comment here..."
           required
+          maxLength={100}
         ></textarea>
         <div className="flex justify-end mt-2">
           <Button

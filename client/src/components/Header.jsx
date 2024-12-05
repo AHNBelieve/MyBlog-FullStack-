@@ -37,8 +37,8 @@ const Header = () => {
     });
   };
   return (
-    <header className="bg-white shadow-md">
-      <div className="container ml-5 px-4 py-4 flex items-center justify-between">
+    <header className="bg-white shadow-md flex items-center justify-center">
+      <div className="container ml-5 mr-5 px-4 py-4 flex items-center justify-between">
         <div
           className="text-3xl font-bold text-gray-800 hover:text-blue-800 cursor-pointer select-none"
           onClick={() => {

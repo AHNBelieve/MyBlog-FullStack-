@@ -5,3 +5,20 @@
 body {
   font-family: "Inter", sans-serif;
 }
+/* App.css */
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 화면 전체 높이 */
+}
+
+.main {
+  flex: 1; /* 메인 콘텐츠가 차지할 공간 */
+}

@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import auth from "../hoc/auth";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { setPageNumber, setSearchQuery } from "../_actions/config_action";
 
 function App() {
@@ -42,8 +43,8 @@ function App() {
   }, [dispatch, config.pageNumber, config.searchQuery]);
 
   return (
-    <>
-      <Header></Header>
+    <div className="app-container">
+      <Header />
       <div className="main">
         <Routes>
           <Route path="/" element={auth(Home, null)} />
@@ -55,7 +56,8 @@ function App() {
           <Route path="/register" element={auth(RegisterPage, false)} />
         </Routes>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 
